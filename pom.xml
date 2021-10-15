@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.gardendev</groupId>
-    <artifactId>SimpleAnnouncer</artifactId>
+    <artifactId>FenixAnnouncer</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>SimpleAnnouncer</name>
+    <name>FenixAnnouncer</name>
 
     <description>Simple plugin for announcer</description>
     <properties>

@@ -1,10 +1,11 @@
-package me.gardendev.simpleannouncer.managers;
+package me.gardendev.fenixannouncer.managers;
 
-import me.gardendev.simpleannouncer.SimpleAnnouncer;
+import me.gardendev.fenixannouncer.FenixAnnouncer;
+import me.gardendev.fenixannouncer.utils.PlaceholderUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Random;
@@ -15,9 +16,10 @@ public class AnnouncerManager {
 
     private final FileConfiguration config;
     private final List<String> announcements;
-    private final SimpleAnnouncer plugin;
+    private final FenixAnnouncer plugin;
+    private int i = 0;
 
-    public AnnouncerManager(SimpleAnnouncer plugin) {
+    public AnnouncerManager(FenixAnnouncer plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
         this.announcements = config.getStringList("interval-announcement");
@@ -42,16 +44,18 @@ public class AnnouncerManager {
                     "announcements." + announcements.get(number.nextInt(announcements.size()))
             );
             for (String line : announcement) {
-                actions.execute(audience, line);
+                actions.execute(audience, PlaceholderUtil.placeholder((Player) audience,line));
             }
             return;
         }
-        int i = announcements.size();
-        if (i != 0) {
-            i--;
+
+        if (i != announcements.size()) {
+            i++;
             for (String line : config.getStringList("announcements." + announcements.get(i))) {
-                actions.execute(audience, line);
+                actions.execute(audience, PlaceholderUtil.placeholder((Player) audience,line));
             }
+            return;
         }
+        i = 0;
     }
 }

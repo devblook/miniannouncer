@@ -1,7 +1,7 @@
-package me.gardendev.simpleannouncer.commands;
+package me.gardendev.fenixannouncer.commands;
 
-import me.gardendev.simpleannouncer.SimpleAnnouncer;
-import me.gardendev.simpleannouncer.utils.ChatUtil;
+import me.gardendev.fenixannouncer.FenixAnnouncer;
+import me.gardendev.fenixannouncer.utils.ChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor {
 
-    private final SimpleAnnouncer plugin;
+    private final FenixAnnouncer plugin;
 
-    public MainCommand(SimpleAnnouncer plugin) {
+    public MainCommand(FenixAnnouncer plugin) {
         this.plugin = plugin;
     }
 
