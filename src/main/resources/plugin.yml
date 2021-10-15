@@ -1,0 +1,13 @@
+name: SimpleAnnouncer
+version: '${project.version}'
+main: me.gardendev.simpleannouncer.SimpleAnnouncer
+api-version: 1.17
+authors: [ Jonakls ]
+description: Simple plugin for announcer
+website: https://github.com/Jonakls
+commands:
+  simpleannouncer:
+    description: General command of plugin
+    aliases:
+      - announcer
+      - sa
