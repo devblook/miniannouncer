@@ -5,8 +5,6 @@ import me.gardendev.fenixannouncer.utils.ChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor {
@@ -20,35 +18,54 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
-        FileConfiguration config = plugin.getConfig();
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("No console commands please");
+        if (!sender.hasPermission("fenixannouncer.commands")) {
+            sender.sendMessage(ChatUtil.toLegacyColors("&cNo permissionsp'"));
             return true;
         }
-        Player player = (Player) sender;
+
         if (args.length < 1) {
-            player.sendMessage("Unknown Command");
+            sender.sendMessage(ChatUtil.toLegacyColors("&cUnknown Command"));
             return true;
         }
-
         switch (args[0].toLowerCase()) {
-            case "test":
-                for (String path : config.getConfigurationSection("announcements").getKeys(false)) {
-                    player.sendMessage(String.format("Announce: (%s)", path));
-                    for (String line : config.getStringList("announcements." + path)) {
-                        player.sendMessage(ChatUtil.toMiniMessage(line));
-                    }
-                }
+            case "enable":
+                plugin.getConfig().set("announcer.enabled", true);
+                plugin.reloadConfig();
+                plugin.getAnnouncerManager().initTask();
+                sender.sendMessage(ChatUtil.toLegacyColors("&aSInit all announcements"));
+                break;
+            case "disable":
+                plugin.getConfig().set("announcer.enabled", false);
+                plugin.reloadConfig();
+                plugin.getAnnouncerManager().stopTask();
+                sender.sendMessage(ChatUtil.toLegacyColors("&aStop all announcements"));
                 break;
             case "reload":
+                plugin.getAnnouncerManager().stopTask();
                 plugin.reloadConfig();
-                player.sendMessage("Plugin reloaded!");
+                sender.sendMessage(ChatUtil.toLegacyColors("&aPlugin reloaded"));
+                plugin.getAnnouncerManager().initTask();
+                break;
+            case "info":
+                sender.sendMessage(
+                        ChatUtil.toLegacyColors("&6FenixAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
+                        ChatUtil.toLegacyColors("&r"),
+                        ChatUtil.toLegacyColors("&eMade by: &c" + plugin.getDescription().getAuthors())
+                );
                 break;
             default:
-                player.sendMessage("Unknown Command");
+                sender.sendMessage(
+                        ChatUtil.toLegacyColors("&6FenixAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
+                        ChatUtil.toLegacyColors("&r"),
+                        ChatUtil.toLegacyColors("&e/fenixannouncer - /fa - /announcer"),
+                        ChatUtil.toLegacyColors("&r"),
+                        ChatUtil.toLegacyColors("&a/fa reload &8| &eReload plugin"),
+                        ChatUtil.toLegacyColors("&a/fa info &8| &eShow info of development plugin"),
+                        ChatUtil.toLegacyColors("&a/fa help &8| &eShow this message")
+                );
                 break;
         }
-        return false;
+        return true;
     }
 }

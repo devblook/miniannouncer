@@ -1,27 +1,31 @@
+debug: "Test"
 announcer:
   enabled: true
   random: false
-  interval: 6
+  interval: 10
 interval-announcement:
   - one
   - two
   - three
 announcements:
   one:
-    actionbar:
-      enabled: true
-      message: "<green>This is a announcer"
-    chat-message:
-      - "<green>This is a announcer"
-      - "<gradient:#5e4fa2:#f79459>Compatible with hex colors</gradient>"
+    - "[MESSAGE] <r>"
+    - "[TITLE] <aqua>Title announce;<green>Subtitle Announce;5;5;5"
+    - "[ACTIONBAR] <aqua>This is a announcer"
+    - "[MESSAGE] <red>This is a announcer"
+    - "[MESSAGE] <r>"
   two:
-    - "[TITLE] Title announce;Subtitle Announce;5;5;5"
+    - "[MESSAGE] <r>"
+    - "[TITLE] <aqua>Title announce;<green>Subtitle Announce;5;5;5"
     - "[ACTIONBAR] <red>This is a announcer"
     - "[MESSAGE] <red>This is a announcer"
-    - "[MESSAGE] <blue>Compatible with PlaceholderAPI"
+    - "[MESSAGE] <dark_aqua>Compatible with PlaceholderAPI"
     - "[MESSAGE] <green>Name: <yellow>%player_name%"
     - "[MESSAGE] <green>Prefix: <yellow>%vault_prefix%"
+    - "[MESSAGE] <r>"
   three:
+    - "[MESSAGE] <r>"
     - "<green>This is a announcer"
-    - "<hover:show_text:'<blue>Show minimessage page'><red>Compatible with hover text</hover>"
-    - "<hover:show_text:'<blue>Click here'><Click:suggest_command:/say Hello><red>Compatible with click actions</action></hover>"
+    - "<hover:show_text:'<aqua>Show minimessage page'><red>Compatible with hover text</hover>"
+    - "<hover:show_text:'<aqua>Click here'><click:suggest_command:/say Hello><red>Compatible with click actions</click></hover>"
+    - "[MESSAGE] <r>"

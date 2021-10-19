@@ -8,16 +8,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.logging.Level;
 
+@SuppressWarnings("all")
 public final class FenixAnnouncer extends JavaPlugin {
+
+    private AnnouncerManager announcerManager;
 
     @Override
     public void onEnable() {
         this.registerConfig();
 
-        // Command
+        announcerManager = new AnnouncerManager(this);
+        announcerManager.initTask();
         getCommand("fenixannouncer").setExecutor(new MainCommand(this));
-        AnnouncerManager announcerManager = new AnnouncerManager(this);
-        announcerManager.task();
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().info("Hook PlaceholderAPI");
@@ -29,15 +31,19 @@ public final class FenixAnnouncer extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        announcerManager.stopTask();
     }
 
     private void registerConfig() {
         File configFile = new File(this.getDataFolder(), "config.yml");
 
         if (!configFile.exists()) {
-            getConfig().options().copyDefaults(true);
-            saveConfig();
+            getConfig().options().copyDefaults();
+            saveDefaultConfig();
         }
+    }
+
+    public AnnouncerManager getAnnouncerManager() {
+        return announcerManager;
     }
 }

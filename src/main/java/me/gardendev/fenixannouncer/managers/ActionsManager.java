@@ -24,9 +24,6 @@ public class ActionsManager {
 
         } else if (line.startsWith("[TITLE]")) {
             String[] title = line.substring(7).split(";");
-            for(String text : title) {
-                audience.sendMessage(ChatUtil.toMiniMessage(text));
-            }
             audience.showTitle(
                     Title.title(
                             ChatUtil.toMiniMessage(title[0]),
