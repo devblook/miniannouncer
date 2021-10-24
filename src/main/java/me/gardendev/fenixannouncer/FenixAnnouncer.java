@@ -17,8 +17,8 @@ public final class FenixAnnouncer extends JavaPlugin {
     public void onEnable() {
         this.registerConfig();
 
-        announcerManager = new AnnouncerManager(this);
-        announcerManager.initTask();
+        this.announcerManager = new AnnouncerManager(this);
+        this.announcerManager.initTask();
         getCommand("fenixannouncer").setExecutor(new MainCommand(this));
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -31,15 +31,15 @@ public final class FenixAnnouncer extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        announcerManager.stopTask();
+        this.announcerManager.stopTask();
     }
 
     private void registerConfig() {
         File configFile = new File(this.getDataFolder(), "config.yml");
 
         if (!configFile.exists()) {
-            getConfig().options().copyDefaults();
-            saveDefaultConfig();
+            this.getConfig().options().copyDefaults();
+            this.saveDefaultConfig();
         }
     }
 
