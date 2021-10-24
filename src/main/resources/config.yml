@@ -1,8 +1,7 @@
-debug: "Test"
 announcer:
   enabled: true
   random: false
-  interval: 10
+  interval: 30
 interval-announcement:
   - one
   - two
@@ -10,22 +9,29 @@ interval-announcement:
 announcements:
   one:
     - "[MESSAGE] <r>"
-    - "[TITLE] <aqua>Title announce;<green>Subtitle Announce;5;5;5"
-    - "[ACTIONBAR] <aqua>This is a announcer"
-    - "[MESSAGE] <red>This is a announcer"
+    - "[TITLE]<aqua>Title announce;<green>Subtitle Announce;5;5;5"
+    - "[ACTIONBAR]<aqua>This is a announcer"
+    - "[MESSAGE]<red>This is a announcer"
+    - "[MESSAGE]<gradient:red:blue>Compatible with hex colors and gradient effect</gradient>"
+    - "[MESSAGE]<color:#EAAC46>Please view <click:open_url:https://docs.adventure.kyori.net/minimessage#><hover:show_text:'<yellow>Click here'><red>MiniMessage</hover></click>"
+    - "[MESSAGE]<color:#EAAC46>for view documentation minimessage and write more formats!!"
     - "[MESSAGE] <r>"
+    - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5:5"
   two:
     - "[MESSAGE] <r>"
-    - "[TITLE] <aqua>Title announce;<green>Subtitle Announce;5;5;5"
+    - "[TITLE]<gradient:red:blue>Gradient in title</gradient>;<green>Subtitle Announce;5;5;5"
     - "[ACTIONBAR] <red>This is a announcer"
     - "[MESSAGE] <red>This is a announcer"
     - "[MESSAGE] <dark_aqua>Compatible with PlaceholderAPI"
     - "[MESSAGE] <green>Name: <yellow>%player_name%"
     - "[MESSAGE] <green>Prefix: <yellow>%vault_prefix%"
     - "[MESSAGE] <r>"
+    - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5:5"
   three:
+    - "[TITLE]<color:#EAAC46>Hex in title;<green>Subtitle Announce;5;5;5"
     - "[MESSAGE] <r>"
-    - "<green>This is a announcer"
-    - "<hover:show_text:'<aqua>Show minimessage page'><red>Compatible with hover text</hover>"
-    - "<hover:show_text:'<aqua>Click here'><click:suggest_command:/say Hello><red>Compatible with click actions</click></hover>"
+    - "[ACTIONBAR]<color:#EAAC46>Hex in actionbar"
+    - "[MESSAGE]<hover:show_text:'<yellow>Hello world!!!'><red>Compatible with hover text</hover>"
+    - "[MESSAGE]<hover:show_text:'<yellow>Click here'><click:suggest_command:/help><red>Compatible with click actions</click></hover>"
     - "[MESSAGE] <r>"
+    - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5:5"
