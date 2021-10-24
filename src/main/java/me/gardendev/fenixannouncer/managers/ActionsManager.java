@@ -2,10 +2,10 @@ package me.gardendev.fenixannouncer.managers;
 
 import me.gardendev.fenixannouncer.FenixAnnouncer;
 import me.gardendev.fenixannouncer.utils.ChatUtil;
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.title.Title;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.intellij.lang.annotations.Subst;
 
 import java.time.Duration;
@@ -18,13 +18,13 @@ public class ActionsManager {
         this.config = plugin.getConfig();
     }
 
-    public void execute(Audience audience, String line) {
+    public void execute(Player player, String line) {
         if (line.startsWith("[MESSAGE]")) {
-            audience.sendMessage(ChatUtil.toMiniMessage(line.substring(9)));
+            player.sendMessage(ChatUtil.toMiniMessage(line.substring(9)));
 
         } else if (line.startsWith("[TITLE]")) {
             String[] title = line.substring(7).split(";");
-            audience.showTitle(
+            player.showTitle(
                     Title.title(
                             ChatUtil.toMiniMessage(title[0]),
                             ChatUtil.toMiniMessage(title[1]),
@@ -36,12 +36,12 @@ public class ActionsManager {
                     )
             );
         } else if (line.startsWith("[ACTIONBAR]")) {
-            audience.sendActionBar(ChatUtil.toMiniMessage(line.substring(11)));
+            player.sendActionBar(ChatUtil.toMiniMessage(line.substring(11)));
 
         } else if (line.startsWith("[SOUND]")) {
             @Subst("")
             String[] sound = line.substring(7).trim().split(";");
-            audience.playSound(
+            player.playSound(
                     Sound.sound(
                             org.bukkit.Sound.valueOf(sound[0].trim()),
                             Sound.Source.NEUTRAL,
@@ -51,7 +51,7 @@ public class ActionsManager {
             );
 
         } else {
-            audience.sendMessage(ChatUtil.toMiniMessage(line));
+            player.sendMessage(ChatUtil.toMiniMessage(line));
         }
     }
 
