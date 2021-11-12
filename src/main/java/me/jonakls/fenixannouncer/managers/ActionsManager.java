@@ -1,7 +1,7 @@
-package me.gardendev.fenixannouncer.managers;
+package me.jonakls.fenixannouncer.managers;
 
-import me.gardendev.fenixannouncer.FenixAnnouncer;
-import me.gardendev.fenixannouncer.utils.ChatUtil;
+import me.jonakls.fenixannouncer.FenixAnnouncer;
+import me.jonakls.fenixannouncer.utils.ChatUtil;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.title.Title;
 import org.bukkit.configuration.file.FileConfiguration;

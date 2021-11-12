@@ -1,7 +1,7 @@
-package me.gardendev.fenixannouncer.managers;
+package me.jonakls.fenixannouncer.managers;
 
-import me.gardendev.fenixannouncer.FenixAnnouncer;
-import me.gardendev.fenixannouncer.utils.PlaceholderUtil;
+import me.jonakls.fenixannouncer.FenixAnnouncer;
+import me.jonakls.fenixannouncer.utils.PlaceholderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitTask;

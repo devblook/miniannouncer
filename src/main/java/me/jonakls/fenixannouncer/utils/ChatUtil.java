@@ -1,4 +1,4 @@
-package me.gardendev.fenixannouncer.utils;
+package me.jonakls.fenixannouncer.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

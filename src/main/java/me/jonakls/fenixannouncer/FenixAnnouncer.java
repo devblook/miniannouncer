@@ -1,7 +1,7 @@
-package me.gardendev.fenixannouncer;
+package me.jonakls.fenixannouncer;
 
-import me.gardendev.fenixannouncer.commands.MainCommand;
-import me.gardendev.fenixannouncer.managers.AnnouncerManager;
+import me.jonakls.fenixannouncer.commands.MainCommand;
+import me.jonakls.fenixannouncer.managers.AnnouncerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

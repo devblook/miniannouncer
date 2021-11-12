@@ -1,8 +1,7 @@
-package me.gardendev.fenixannouncer.commands;
+package me.jonakls.fenixannouncer.commands;
 
-import me.gardendev.fenixannouncer.FenixAnnouncer;
-import me.gardendev.fenixannouncer.utils.ChatUtil;
-import org.bukkit.Bukkit;
+import me.jonakls.fenixannouncer.FenixAnnouncer;
+import me.jonakls.fenixannouncer.utils.ChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

@@ -1,5 +1,6 @@
 # User-specific stuff
 .idea/
+.gradle
 
 *.iml
 *.ipr
@@ -7,8 +8,6 @@
 
 # IntelliJ
 out/
-/.idea/
-*.iml
 
 # Compiled class file
 *.class

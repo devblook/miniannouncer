@@ -1,4 +1,4 @@
-package me.gardendev.fenixannouncer.utils;
+package me.jonakls.fenixannouncer.utils;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;

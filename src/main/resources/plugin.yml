@@ -1,6 +1,6 @@
 name: FenixAnnouncer
 version: '${project.version}'
-main: me.gardendev.fenixannouncer.FenixAnnouncer
+main: me.jonakls.fenixannouncer.FenixAnnouncer
 api-version: 1.17
 authors: [ Jonakls ]
 description: Simple plugin for announcer
