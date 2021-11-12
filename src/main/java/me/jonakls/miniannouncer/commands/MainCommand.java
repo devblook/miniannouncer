@@ -20,7 +20,7 @@ public class MainCommand implements CommandExecutor {
                              @NotNull String label, @NotNull String[] args) {
 
         if (!sender.hasPermission("miniannouncer.commands")) {
-            sender.sendMessage(ChatUtil.toLegacyColors("&cNo permissionsp'"));
+            sender.sendMessage(ChatUtil.toLegacyColors("&cNo permissions!"));
             return true;
         }
 
@@ -33,7 +33,7 @@ public class MainCommand implements CommandExecutor {
                 plugin.getConfig().set("announcer.enabled", true);
                 plugin.reloadConfig();
                 plugin.getAnnouncerManager().initTask();
-                sender.sendMessage(ChatUtil.toLegacyColors("&aSInit all announcements"));
+                sender.sendMessage(ChatUtil.toLegacyColors("&aStart all announcements"));
                 break;
             case "disable":
                 plugin.getConfig().set("announcer.enabled", false);
@@ -44,7 +44,7 @@ public class MainCommand implements CommandExecutor {
             case "reload":
                 plugin.getAnnouncerManager().stopTask();
                 plugin.reloadConfig();
-                sender.sendMessage(ChatUtil.toLegacyColors("&aPlugin reloaded"));
+                sender.sendMessage(ChatUtil.toLegacyColors("&aPlugin has been reloaded"));
                 plugin.getAnnouncerManager().initTask();
                 break;
             case "info":
@@ -58,10 +58,10 @@ public class MainCommand implements CommandExecutor {
                 sender.sendMessage(
                         ChatUtil.toLegacyColors("&6MiniAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
                         ChatUtil.toLegacyColors("&r"),
-                        ChatUtil.toLegacyColors("&e/miniannouncer - /ma - /announcer - /minia"),
+                        ChatUtil.toLegacyColors("&e/ma - /minia - /announcer - /miniannouncer"),
                         ChatUtil.toLegacyColors("&r"),
                         ChatUtil.toLegacyColors("&a/ma reload &8| &eReload plugin"),
-                        ChatUtil.toLegacyColors("&a/ma info &8| &eShow info of development plugin"),
+                        ChatUtil.toLegacyColors("&a/ma info &8| &eShow plugin info"),
                         ChatUtil.toLegacyColors("&a/ma help &8| &eShow this message")
                 );
                 break;

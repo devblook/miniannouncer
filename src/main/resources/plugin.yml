@@ -5,14 +5,13 @@ api-version: 1.17
 authors: [ Jonakls ]
 description: Simple plugin for automatic announcers
 website: https://github.com/Jonakls
-loadbefore:
-  - PlaceholderAPI
-depend:
+
+softdepend:
   - PlaceholderAPI
 commands:
   miniannouncer:
     description: General command of plugin
     aliases:
-      - announcer
       - ma
       - minia
+      - announcer

@@ -15,15 +15,15 @@ public class MainTabCompletion implements TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command,
                                                 @NotNull String s, @NotNull String[] strings) {
 
-        List<String> list = new ArrayList<>();
-
         if (strings.length == 1) {
+            List<String> list = new ArrayList<>();
             list.add("enable");
             list.add("disable");
             list.add("info");
             list.add("reload");
             list.add("info");
             list.add("help");
+
             return list;
         }
 

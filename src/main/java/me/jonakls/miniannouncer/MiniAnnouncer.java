@@ -24,10 +24,10 @@ public final class MiniAnnouncer extends JavaPlugin {
         getCommand("miniannouncer").setTabCompleter(new MainTabCompletion());
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            getLogger().info("Hook PlaceholderAPI");
+            getLogger().info("PlaceholderAPI has been found, using it!");
             return;
         }
-        getLogger().log(Level.WARNING, "The PlaceholderAPI plugin is missing, this plugin cannot function properly without this dependency");
+        getLogger().log(Level.WARNING, "The PlaceholderAPI plugin is missing, some functions will NOT work properly without this dependency.");
 
     }
 
