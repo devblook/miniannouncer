@@ -1,6 +1,7 @@
 package me.jonakls.miniannouncer;
 
 import me.jonakls.miniannouncer.commands.MainCommand;
+import me.jonakls.miniannouncer.commands.MainTabCompletion;
 import me.jonakls.miniannouncer.managers.AnnouncerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +20,8 @@ public final class MiniAnnouncer extends JavaPlugin {
 
         this.announcerManager = new AnnouncerManager(this);
         this.announcerManager.initTask();
-        getCommand("fenixannouncer").setExecutor(new MainCommand(this));
+        getCommand("miniannouncer").setExecutor(new MainCommand(this));
+        getCommand("miniannouncer").setTabCompleter(new MainTabCompletion());
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().info("Hook PlaceholderAPI");
