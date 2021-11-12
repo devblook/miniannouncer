@@ -40,9 +40,9 @@ dependencies {
     compileOnly 'me.clip:placeholderapi:2.10.10'
 }
 
-group = 'me.gardendev'
+group = 'me.jonakls'
 version = '1.0'
-description = 'FenixAnnouncer'
+description = 'MiniAnnouncer'
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {

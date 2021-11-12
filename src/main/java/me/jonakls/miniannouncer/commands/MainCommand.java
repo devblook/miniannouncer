@@ -1,7 +1,7 @@
-package me.jonakls.fenixannouncer.commands;
+package me.jonakls.miniannouncer.commands;
 
-import me.jonakls.fenixannouncer.FenixAnnouncer;
-import me.jonakls.fenixannouncer.utils.ChatUtil;
+import me.jonakls.miniannouncer.MiniAnnouncer;
+import me.jonakls.miniannouncer.utils.ChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor {
 
-    private final FenixAnnouncer plugin;
+    private final MiniAnnouncer plugin;
 
-    public MainCommand(FenixAnnouncer plugin) {
+    public MainCommand(MiniAnnouncer plugin) {
         this.plugin = plugin;
     }
 

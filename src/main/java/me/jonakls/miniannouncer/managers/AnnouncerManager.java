@@ -1,7 +1,7 @@
-package me.jonakls.fenixannouncer.managers;
+package me.jonakls.miniannouncer.managers;
 
-import me.jonakls.fenixannouncer.FenixAnnouncer;
-import me.jonakls.fenixannouncer.utils.PlaceholderUtil;
+import me.jonakls.miniannouncer.MiniAnnouncer;
+import me.jonakls.miniannouncer.utils.PlaceholderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitTask;
@@ -13,11 +13,11 @@ public class AnnouncerManager {
 
     private final ActionsManager actions;
 
-    private final FenixAnnouncer plugin;
+    private final MiniAnnouncer plugin;
     private int i = 0;
     private BukkitTask task;
 
-    public AnnouncerManager(FenixAnnouncer plugin) {
+    public AnnouncerManager(MiniAnnouncer plugin) {
         this.plugin = plugin;
         this.actions = new ActionsManager(this.plugin);
     }

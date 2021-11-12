@@ -1,7 +1,7 @@
-package me.jonakls.fenixannouncer.managers;
+package me.jonakls.miniannouncer.managers;
 
-import me.jonakls.fenixannouncer.FenixAnnouncer;
-import me.jonakls.fenixannouncer.utils.ChatUtil;
+import me.jonakls.miniannouncer.MiniAnnouncer;
+import me.jonakls.miniannouncer.utils.ChatUtil;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.title.Title;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,7 +14,7 @@ public class ActionsManager {
 
     public FileConfiguration config;
 
-    public ActionsManager(FenixAnnouncer plugin) {
+    public ActionsManager(MiniAnnouncer plugin) {
         this.config = plugin.getConfig();
     }
 

@@ -1,7 +1,7 @@
-package me.jonakls.fenixannouncer;
+package me.jonakls.miniannouncer;
 
-import me.jonakls.fenixannouncer.commands.MainCommand;
-import me.jonakls.fenixannouncer.managers.AnnouncerManager;
+import me.jonakls.miniannouncer.commands.MainCommand;
+import me.jonakls.miniannouncer.managers.AnnouncerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.logging.Level;
 
 @SuppressWarnings("all")
-public final class FenixAnnouncer extends JavaPlugin {
+public final class MiniAnnouncer extends JavaPlugin {
 
     private AnnouncerManager announcerManager;
 

@@ -1,9 +1,9 @@
-name: FenixAnnouncer
+name: MiniAnnouncer
 version: '${project.version}'
-main: me.jonakls.fenixannouncer.FenixAnnouncer
+main: me.jonakls.miniannouncer.MiniAnnouncer
 api-version: 1.17
 authors: [ Jonakls ]
-description: Simple plugin for announcer
+description: Simple plugin for automatic announcers
 website: https://github.com/Jonakls
 loadbefore:
   - PlaceholderAPI
@@ -14,4 +14,5 @@ commands:
     description: General command of plugin
     aliases:
       - announcer
-      - fa
+      - ma
+      - minia

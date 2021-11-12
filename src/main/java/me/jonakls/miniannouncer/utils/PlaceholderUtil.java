@@ -1,4 +1,4 @@
-package me.jonakls.fenixannouncer.utils;
+package me.jonakls.miniannouncer.utils;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;

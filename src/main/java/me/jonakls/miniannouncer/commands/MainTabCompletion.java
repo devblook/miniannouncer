@@ -1,4 +1,4 @@
-package me.jonakls.fenixannouncer.commands;
+package me.jonakls.miniannouncer.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
