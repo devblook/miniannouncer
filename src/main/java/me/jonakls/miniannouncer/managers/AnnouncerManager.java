@@ -11,29 +11,34 @@ import java.util.Random;
 
 public class AnnouncerManager {
 
+    private final Random random;
+    private final MiniAnnouncer plugin;
     private final ActionsManager actions;
 
-    private final MiniAnnouncer plugin;
     private int i = 0;
     private BukkitTask task;
 
     public AnnouncerManager(MiniAnnouncer plugin) {
         this.plugin = plugin;
+        this.random = new Random();
         this.actions = new ActionsManager(this.plugin);
     }
 
     public void announce() {
         FileConfiguration config = plugin.getConfig();
+
+        // If announcer is disabled from config, announcer will not be sent.
+        if (!config.getBoolean("announcer.enabled")) return;
+
         List<String> announcements = config.getStringList("interval-announcement");
-        Random number = new Random();
 
         if (config.getBoolean("announcer.random")) {
             List<String> announcement = config.getStringList(
-                    "announcements." + announcements.get(number.nextInt(announcements.size()))
+                    "announcements." + announcements.get(random.nextInt(announcements.size()))
             );
             for (String line : announcement) {
                 Bukkit.getOnlinePlayers()
-                        .forEach(player -> actions.execute(player, PlaceholderUtil.placeholder(player ,line)));
+                        .forEach(player -> actions.execute(player, PlaceholderUtil.placeholder(player, line)));
             }
             return;
         }
@@ -41,7 +46,7 @@ public class AnnouncerManager {
         if (i != announcements.size()) {
             for (String line : config.getStringList("announcements." + announcements.get(i))) {
                 Bukkit.getOnlinePlayers()
-                        .forEach(player -> actions.execute(player, PlaceholderUtil.placeholder(player ,line)));
+                        .forEach(player -> actions.execute(player, PlaceholderUtil.placeholder(player, line)));
             }
             i++;
             return;
@@ -53,16 +58,15 @@ public class AnnouncerManager {
         FileConfiguration config = plugin.getConfig();
         this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(
                 plugin,
-                () -> {
-                    if (!config.getBoolean("announcer.enabled")) return;
-                    this.announce();
-                },
-                0,
-                (long) 20 * config.getInt("announcer.interval")
+                this::announce,
+                0L,
+                20L * config.getInt("announcer.interval")
         );
     }
 
     public void stopTask() {
-        this.task.cancel();
+        if (task != null) {
+            this.task.cancel();
+        }
     }
 }
