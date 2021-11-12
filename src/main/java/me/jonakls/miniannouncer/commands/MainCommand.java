@@ -49,20 +49,20 @@ public class MainCommand implements CommandExecutor {
                 break;
             case "info":
                 sender.sendMessage(
-                        ChatUtil.toLegacyColors("&6FenixAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
+                        ChatUtil.toLegacyColors("&6MiniAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
                         ChatUtil.toLegacyColors("&r"),
                         ChatUtil.toLegacyColors("&eMade by: &c" + plugin.getDescription().getAuthors())
                 );
                 break;
             default:
                 sender.sendMessage(
-                        ChatUtil.toLegacyColors("&6FenixAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
+                        ChatUtil.toLegacyColors("&6MiniAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
                         ChatUtil.toLegacyColors("&r"),
-                        ChatUtil.toLegacyColors("&e/fenixannouncer - /fa - /announcer"),
+                        ChatUtil.toLegacyColors("&e/miniannouncer - /ma - /announcer - /minia"),
                         ChatUtil.toLegacyColors("&r"),
-                        ChatUtil.toLegacyColors("&a/fa reload &8| &eReload plugin"),
-                        ChatUtil.toLegacyColors("&a/fa info &8| &eShow info of development plugin"),
-                        ChatUtil.toLegacyColors("&a/fa help &8| &eShow this message")
+                        ChatUtil.toLegacyColors("&a/ma reload &8| &eReload plugin"),
+                        ChatUtil.toLegacyColors("&a/ma info &8| &eShow info of development plugin"),
+                        ChatUtil.toLegacyColors("&a/ma help &8| &eShow this message")
                 );
                 break;
         }

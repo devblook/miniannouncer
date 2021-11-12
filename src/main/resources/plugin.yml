@@ -10,7 +10,7 @@ loadbefore:
 depend:
   - PlaceholderAPI
 commands:
-  fenixannouncer:
+  miniannouncer:
     description: General command of plugin
     aliases:
       - announcer
