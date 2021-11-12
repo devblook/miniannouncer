@@ -19,7 +19,7 @@ public class MainCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                              @NotNull String label, @NotNull String[] args) {
 
-        if (!sender.hasPermission("fenixannouncer.commands")) {
+        if (!sender.hasPermission("miniannouncer.commands")) {
             sender.sendMessage(ChatUtil.toLegacyColors("&cNo permissionsp'"));
             return true;
         }
