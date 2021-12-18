@@ -1,5 +1,5 @@
 name: MiniAnnouncer
-version: '${project.version}'
+version: @version@
 main: me.jonakls.miniannouncer.MiniAnnouncer
 api-version: 1.17
 authors: [ Jonakls ]
