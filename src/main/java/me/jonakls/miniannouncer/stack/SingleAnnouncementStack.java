@@ -1,4 +1,4 @@
-package me.jonakls.miniannouncer.announce;
+package me.jonakls.miniannouncer.stack;
 
 import me.jonakls.miniannouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
