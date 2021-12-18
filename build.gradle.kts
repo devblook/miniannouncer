@@ -5,13 +5,13 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://repo.codemc.io/repository/nms/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     mavenCentral()
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper:paper:1.16.5-R0.1-SNAPSHOT")
 
     implementation("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT") {
         exclude("net.kyori", "adventure-api")
