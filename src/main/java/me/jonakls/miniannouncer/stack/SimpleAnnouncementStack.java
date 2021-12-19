@@ -1,8 +1,5 @@
 package me.jonakls.miniannouncer.stack;
 
-import me.jonakls.miniannouncer.utils.MiniMessageUtil;
-import net.kyori.adventure.text.Component;
-
 import java.util.List;
 
 public class SimpleAnnouncementStack implements AnnouncementStack {
@@ -10,24 +7,24 @@ public class SimpleAnnouncementStack implements AnnouncementStack {
     private final List<String> frames;
 
     protected int cursor;
-    protected Component current;
+    protected String current;
 
     public SimpleAnnouncementStack(List<String> frames) {
         this.frames = frames;
     }
 
     @Override
-    public Component current() {
+    public String current() {
         return current;
     }
 
     @Override
-    public Component next() {
+    public String next() {
         if (cursor >= getSize()) {
             cursor = 0;
         }
 
-        current = MiniMessageUtil.toMiniMessage(frames.get(cursor++));
+        current = frames.get(cursor++);
 
         return current;
     }

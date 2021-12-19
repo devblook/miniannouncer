@@ -1,25 +1,22 @@
 package me.jonakls.miniannouncer.stack;
 
-import me.jonakls.miniannouncer.utils.MiniMessageUtil;
-import net.kyori.adventure.text.Component;
-
 import java.util.List;
 
 public class SingleAnnouncementStack implements AnnouncementStack {
 
-    private final Component component;
+    private final String component;
 
     public SingleAnnouncementStack(List<String> frames) {
-        this.component = MiniMessageUtil.toMiniMessage(frames.get(0));
+        this.component = frames.get(0);
     }
 
     @Override
-    public Component current() {
+    public String current() {
         return component;
     }
 
     @Override
-    public Component next() {
+    public String next() {
         return component;
     }
 

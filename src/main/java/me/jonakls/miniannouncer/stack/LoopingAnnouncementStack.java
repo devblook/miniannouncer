@@ -23,8 +23,8 @@ public class LoopingAnnouncementStack extends SimpleAnnouncementStack {
     }
 
     @Override
-    public Component next() {
-        Component component = super.next();
+    public String next() {
+        String component = super.next();
 
         if (component == null) {
             loopCounter++;

@@ -16,7 +16,7 @@ public class RandomLoopingAnnouncementStack extends LoopingAnnouncementStack {
     }
 
     @Override
-    public Component next() {
+    public String next() {
         do {
             cursor = RANDOM.nextInt(getSize());
         } while (cursor == lastCursor);

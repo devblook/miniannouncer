@@ -1,12 +1,10 @@
 package me.jonakls.miniannouncer.stack;
 
-import net.kyori.adventure.text.Component;
-
 public interface AnnouncementStack {
 
-    Component current();
+    String current();
 
-    Component next();
+    String next();
 
     boolean hasNext();
 
