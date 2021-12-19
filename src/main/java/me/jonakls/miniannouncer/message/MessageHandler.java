@@ -27,28 +27,39 @@ public class MessageHandler {
         return message;
     }
 
-    public String getMessage(CommandSender sender, String path) {
+    public String getMessage(CommandSender sender, String path,
+                             Object... replacements) {
         String message = configuration.getString(BASE_PATH + path);
 
         if (message == null) {
             return path;
         }
 
-        return applyInterceptors(sender, message);
+        return String.format(
+                applyInterceptors(sender, message),
+                replacements
+        );
     }
 
-    public List<String> getMessages(CommandSender sender, String path) {
+    public List<String> getMessages(CommandSender sender, String path,
+                                    Object... replacements) {
         List<String> messages = configuration.getStringList(BASE_PATH + path);
-        messages.replaceAll(line -> applyInterceptors(sender, line));
+        messages.replaceAll(
+                line -> String.format(
+                        applyInterceptors(sender, line),
+                        replacements
+                ));
         return messages;
     }
 
-    public void sendMessage(CommandSender sender, String path) {
-        sender.sendMessage(getMessage(sender, path));
+    public void sendMessage(CommandSender sender, String path,
+                            Object... replacements) {
+        sender.sendMessage(getMessage(sender, path, replacements));
     }
 
-    public void sendMessages(CommandSender sender, String path) {
-        sender.sendMessage(String.join("\n", getMessages(sender, path)));
+    public void sendMessages(CommandSender sender, String path,
+                             Object... replacements) {
+        sender.sendMessage(String.join("\n", getMessages(sender, path, replacements)));
     }
 
     public static MessageHandlerBuilder builder(FileConfiguration configuration) {
