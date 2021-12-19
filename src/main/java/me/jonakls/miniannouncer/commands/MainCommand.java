@@ -1,71 +1,50 @@
 package me.jonakls.miniannouncer.commands;
 
-import me.jonakls.miniannouncer.MiniAnnouncer;
-import me.jonakls.miniannouncer.utils.ChatUtil;
+import me.jonakls.miniannouncer.announce.AnnouncementManager;
+import me.jonakls.miniannouncer.message.MessageHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.plugin.Plugin;
 
 public class MainCommand implements CommandExecutor {
 
-    private final MiniAnnouncer plugin;
+    private final Plugin plugin;
+    private final AnnouncementManager announcementManager;
+    private final MessageHandler messageHandler;
 
-    public MainCommand(MiniAnnouncer plugin) {
+    public MainCommand(Plugin plugin,
+                       AnnouncementManager announcementManager,
+                       MessageHandler messageHandler) {
         this.plugin = plugin;
+        this.announcementManager = announcementManager;
+        this.messageHandler = messageHandler;
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
-                             @NotNull String label, @NotNull String[] args) {
-
+    public boolean onCommand(CommandSender sender, Command command,
+                             String label, String[] args) {
         if (!sender.hasPermission("miniannouncer.commands")) {
-            sender.sendMessage(ChatUtil.toLegacyColors("&cNo permissions!"));
+            messageHandler.sendMessage(sender, "no-permission");
             return true;
         }
 
         if (args.length < 1) {
-            sender.sendMessage(ChatUtil.toLegacyColors("&cUnknown Command"));
+            messageHandler.sendMessage(sender, "help");
             return true;
         }
+
         switch (args[0].toLowerCase()) {
-            case "enable":
-                plugin.getConfig().set("announcer.enabled", true);
-                plugin.reloadConfig();
-                plugin.getAnnouncerManager().initTask();
-                sender.sendMessage(ChatUtil.toLegacyColors("&aStart all announcements"));
+            case "toggle": {
+                announcementManager.toggleAnnouncements(plugin, sender);
                 break;
-            case "disable":
-                plugin.getConfig().set("announcer.enabled", false);
-                plugin.reloadConfig();
-                plugin.getAnnouncerManager().stopTask();
-                sender.sendMessage(ChatUtil.toLegacyColors("&aStop all announcements"));
+            }
+            default: {
+                messageHandler.sendMessage(sender, "help");
                 break;
-            case "reload":
-                plugin.getAnnouncerManager().stopTask();
-                plugin.reloadConfig();
-                sender.sendMessage(ChatUtil.toLegacyColors("&aPlugin has been reloaded"));
-                plugin.getAnnouncerManager().initTask();
-                break;
-            case "info":
-                sender.sendMessage(
-                        ChatUtil.toLegacyColors("&6MiniAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
-                        ChatUtil.toLegacyColors("&r"),
-                        ChatUtil.toLegacyColors("&eMade by: &c" + plugin.getDescription().getAuthors())
-                );
-                break;
-            default:
-                sender.sendMessage(
-                        ChatUtil.toLegacyColors("&6MiniAnnouncer &8- &cv" + plugin.getDescription().getVersion()),
-                        ChatUtil.toLegacyColors("&r"),
-                        ChatUtil.toLegacyColors("&e/ma - /minia - /announcer - /miniannouncer"),
-                        ChatUtil.toLegacyColors("&r"),
-                        ChatUtil.toLegacyColors("&a/ma reload &8| &eReload plugin"),
-                        ChatUtil.toLegacyColors("&a/ma info &8| &eShow plugin info"),
-                        ChatUtil.toLegacyColors("&a/ma help &8| &eShow this message")
-                );
-                break;
+            }
         }
+
         return true;
     }
 }
