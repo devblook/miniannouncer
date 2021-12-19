@@ -1,6 +1,6 @@
 package me.jonakls.miniannouncer.stack;
 
-import net.kyori.adventure.text.Component;
+import me.jonakls.miniannouncer.announce.Announcement;
 
 import java.util.List;
 import java.util.Random;
@@ -11,12 +11,12 @@ public class RandomLoopingAnnouncementStack extends LoopingAnnouncementStack {
 
     private int lastCursor;
 
-    public RandomLoopingAnnouncementStack(List<String> frames, int loops) {
-        super(frames, loops);
+    public RandomLoopingAnnouncementStack(List<Announcement> announcements, int loops) {
+        super(announcements, loops);
     }
 
     @Override
-    public String next() {
+    public Announcement next() {
         do {
             cursor = RANDOM.nextInt(getSize());
         } while (cursor == lastCursor);

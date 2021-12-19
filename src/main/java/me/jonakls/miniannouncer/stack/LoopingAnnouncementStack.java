@@ -1,6 +1,6 @@
 package me.jonakls.miniannouncer.stack;
 
-import net.kyori.adventure.text.Component;
+import me.jonakls.miniannouncer.announce.Announcement;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ public class LoopingAnnouncementStack extends SimpleAnnouncementStack {
 
     private int loopCounter;
 
-    public LoopingAnnouncementStack(List<String> frames, int loops) {
-        super(frames);
+    public LoopingAnnouncementStack(List<Announcement> announcements, int loops) {
+        super(announcements);
         this.loops = loops;
         this.infiniteLoop = loops <= 0;
     }
@@ -23,10 +23,10 @@ public class LoopingAnnouncementStack extends SimpleAnnouncementStack {
     }
 
     @Override
-    public String next() {
-        String component = super.next();
+    public Announcement next() {
+        Announcement next = super.next();
 
-        if (component == null) {
+        if (next == null) {
             loopCounter++;
 
             if (loopCounter >= loops && !infiniteLoop) {
@@ -36,7 +36,7 @@ public class LoopingAnnouncementStack extends SimpleAnnouncementStack {
             cursor = 0;
             return super.next();
         } else {
-            return component;
+            return next;
         }
     }
 

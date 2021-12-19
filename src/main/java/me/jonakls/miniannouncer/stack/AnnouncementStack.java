@@ -1,10 +1,12 @@
 package me.jonakls.miniannouncer.stack;
 
+import me.jonakls.miniannouncer.announce.Announcement;
+
 public interface AnnouncementStack {
 
-    String current();
+    Announcement current();
 
-    String next();
+    Announcement next();
 
     boolean hasNext();
 

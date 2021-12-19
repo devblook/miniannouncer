@@ -1,30 +1,32 @@
 package me.jonakls.miniannouncer.stack;
 
+import me.jonakls.miniannouncer.announce.Announcement;
+
 import java.util.List;
 
 public class SimpleAnnouncementStack implements AnnouncementStack {
 
-    private final List<String> frames;
+    private final List<Announcement> announcements;
 
     protected int cursor;
-    protected String current;
+    protected Announcement current;
 
-    public SimpleAnnouncementStack(List<String> frames) {
-        this.frames = frames;
+    public SimpleAnnouncementStack(List<Announcement> announcements) {
+        this.announcements = announcements;
     }
 
     @Override
-    public String current() {
+    public Announcement current() {
         return current;
     }
 
     @Override
-    public String next() {
+    public Announcement next() {
         if (cursor >= getSize()) {
             cursor = 0;
         }
 
-        current = frames.get(cursor++);
+        current = announcements.get(cursor++);
 
         return current;
     }
@@ -36,7 +38,7 @@ public class SimpleAnnouncementStack implements AnnouncementStack {
 
     @Override
     public int getSize() {
-        return frames.size();
+        return announcements.size();
     }
 
 }

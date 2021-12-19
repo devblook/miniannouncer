@@ -1,23 +1,25 @@
 package me.jonakls.miniannouncer.stack;
 
+import me.jonakls.miniannouncer.announce.Announcement;
+
 import java.util.List;
 
 public class SingleAnnouncementStack implements AnnouncementStack {
 
-    private final String component;
+    private final Announcement announcement;
 
-    public SingleAnnouncementStack(List<String> frames) {
-        this.component = frames.get(0);
+    public SingleAnnouncementStack(List<Announcement> frames) {
+        this.announcement = frames.get(0);
     }
 
     @Override
-    public String current() {
-        return component;
+    public Announcement current() {
+        return announcement;
     }
 
     @Override
-    public String next() {
-        return component;
+    public Announcement next() {
+        return announcement;
     }
 
     @Override
