@@ -1,17 +1,13 @@
 name: MiniAnnouncer
-version: '${project.version}'
+version: @version@
 main: me.jonakls.miniannouncer.MiniAnnouncer
-api-version: 1.17
+api-version: 1.13
 authors: [ Jonakls ]
 description: Simple plugin for automatic announcers
 website: https://github.com/Jonakls
+softdepend: [PlaceholderAPI]
 
-softdepend:
-  - PlaceholderAPI
 commands:
-  miniannouncer:
-    description: General command of plugin
-    aliases:
-      - ma
-      - minia
-      - announcer
+    miniannouncer:
+        description: General command of plugin
+        aliases: [ma, minia, announcer]
