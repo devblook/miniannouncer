@@ -11,19 +11,17 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.destroystokyo.paper:paper:1.16.5-R0.1-SNAPSHOT")
-
-    implementation("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT") {
+    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    implementation("net.kyori:adventure-text-minimessage:4.11.0") {
         exclude("net.kyori", "adventure-api")
     }
-
-    compileOnly("me.clip:placeholderapi:2.10.10")
+    compileOnly("me.clip:placeholderapi:2.11.1")
 }
 
 tasks {
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(8))
+            languageVersion.set(JavaLanguageVersion.of(16))
         }
     }
 
