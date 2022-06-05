@@ -1,1 +1,1 @@
-rootProject.name = "mini-announcer"
+rootProject.name = "MiniAnnouncer"
