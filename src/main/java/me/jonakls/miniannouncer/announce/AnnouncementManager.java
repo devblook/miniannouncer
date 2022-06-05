@@ -1,5 +1,6 @@
 package me.jonakls.miniannouncer.announce;
 
+import me.jonakls.miniannouncer.MiniAnnouncer;
 import me.jonakls.miniannouncer.message.MessageHandler;
 import me.jonakls.miniannouncer.stack.AnnouncementStack;
 import me.jonakls.miniannouncer.stack.AnnouncementStackCreator;
@@ -15,21 +16,22 @@ import java.util.List;
 
 public class AnnouncementManager {
 
-    private final FileConfiguration configuration;
+    private final MiniAnnouncer plugin;
     private final MessageHandler messageHandler;
     private final AnnouncementStackCreator stackCreator;
 
     private int taskId;
 
-    public AnnouncementManager(FileConfiguration configuration,
+    public AnnouncementManager(MiniAnnouncer plugin,
                                MessageHandler messageHandler,
                                AnnouncementStackCreator stackCreator) {
-        this.configuration = configuration;
+        this.plugin = plugin;
         this.messageHandler = messageHandler;
         this.stackCreator = stackCreator;
     }
 
     public List<Announcement> parseAnnouncements() {
+        FileConfiguration configuration = plugin.getConfig();
         ConfigurationSection section = configuration
                 .getConfigurationSection("announcements");
 
@@ -41,6 +43,7 @@ public class AnnouncementManager {
     }
 
     public @Nullable AnnouncementStack createStack() {
+        FileConfiguration configuration = plugin.getConfig();
         ConfigurationSection section = configuration
                 .getConfigurationSection("announcer");
 
@@ -52,6 +55,7 @@ public class AnnouncementManager {
     }
 
     public void toggleAnnouncements(Plugin plugin, CommandSender sender) {
+        FileConfiguration configuration = plugin.getConfig();
         boolean state = !configuration.getBoolean("announcer.enabled");
 
         if (state) {
@@ -66,6 +70,7 @@ public class AnnouncementManager {
     }
 
     public void startTask(Plugin plugin, AnnouncementStack announcementStack) {
+        FileConfiguration configuration = plugin.getConfig();
         taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(
                 plugin, new AnnouncementTask(announcementStack, messageHandler),
                 0L, 20L * configuration.getInt("announcer.interval")

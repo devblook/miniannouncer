@@ -1,5 +1,6 @@
 package me.jonakls.miniannouncer.message;
 
+import me.jonakls.miniannouncer.MiniAnnouncer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -10,12 +11,12 @@ public class MessageHandler {
 
     private static final String BASE_PATH = "messages.";
 
-    private final FileConfiguration configuration;
+    private final MiniAnnouncer plugin;
     private final Set<MessageInterceptor> interceptors;
 
-    public MessageHandler(FileConfiguration configuration,
+    public MessageHandler(MiniAnnouncer plugin,
                           Set<MessageInterceptor> interceptors) {
-        this.configuration = configuration;
+        this.plugin = plugin;
         this.interceptors = interceptors;
     }
 
@@ -29,6 +30,7 @@ public class MessageHandler {
 
     public String getMessage(CommandSender sender, String path,
                              Object... replacements) {
+        FileConfiguration configuration = plugin.getConfig();
         String message = configuration.getString(BASE_PATH + path);
 
         if (message == null) {
@@ -43,6 +45,7 @@ public class MessageHandler {
 
     public List<String> getMessages(CommandSender sender, String path,
                                     Object... replacements) {
+        FileConfiguration configuration = plugin.getConfig();
         List<String> messages = configuration.getStringList(BASE_PATH + path);
         messages.replaceAll(
                 line -> String.format(
@@ -57,13 +60,13 @@ public class MessageHandler {
         sender.sendMessage(getMessage(sender, path, replacements));
     }
 
-    public void sendMessages(CommandSender sender, String path,
+    public void sendListMessage(CommandSender sender, String path,
                              Object... replacements) {
         sender.sendMessage(String.join("\n", getMessages(sender, path, replacements)));
     }
 
-    public static MessageHandlerBuilder builder(FileConfiguration configuration) {
-        return new MessageHandlerBuilder(configuration);
+    public static MessageHandlerBuilder builder(MiniAnnouncer plugin) {
+        return new MessageHandlerBuilder(plugin);
     }
 
 }

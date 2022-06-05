@@ -25,7 +25,7 @@ public final class MiniAnnouncer extends JavaPlugin {
         saveDefaultConfig();
 
         MessageHandlerBuilder messageHandlerBuilder = MessageHandler
-                .builder(getConfig())
+                .builder(this)
                 .addInterceptor(MessageInterceptor.CHAT_COLOR_INTERCEPTOR);
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -45,7 +45,7 @@ public final class MiniAnnouncer extends JavaPlugin {
 
         messageHandler = messageHandlerBuilder.build();
         stackCreator = new AnnouncementStackCreator();
-        announcementManager = new AnnouncementManager(getConfig(), messageHandler, stackCreator);
+        announcementManager = new AnnouncementManager(this, messageHandler, stackCreator);
 
         announcementManager.startTask(this, announcementManager.createStack());
 
@@ -61,6 +61,12 @@ public final class MiniAnnouncer extends JavaPlugin {
     @Override
     public void onDisable() {
         announcementManager.stopTask();
+    }
+
+    public void reloadAnnouncer() {
+        announcementManager.stopTask();
+        getLogger().info("Announcements were restarted!!");
+        announcementManager.startTask(this, announcementManager.createStack());
     }
 
 }

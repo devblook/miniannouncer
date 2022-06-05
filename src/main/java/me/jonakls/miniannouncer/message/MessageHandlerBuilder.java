@@ -1,17 +1,17 @@
 package me.jonakls.miniannouncer.message;
 
-import org.bukkit.configuration.file.FileConfiguration;
+import me.jonakls.miniannouncer.MiniAnnouncer;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public final class MessageHandlerBuilder {
 
-    private final FileConfiguration configuration;
+    private final MiniAnnouncer plugin;
     private final Set<MessageInterceptor> interceptors;
 
-    protected MessageHandlerBuilder(FileConfiguration configuration) {
-        this.configuration = configuration;
+    protected MessageHandlerBuilder(MiniAnnouncer plugin) {
+        this.plugin = plugin;
         this.interceptors = new HashSet<>();
     }
 
@@ -21,7 +21,7 @@ public final class MessageHandlerBuilder {
     }
 
     public MessageHandler build() {
-        return new MessageHandler(configuration, interceptors);
+        return new MessageHandler(plugin, interceptors);
     }
 
 }
