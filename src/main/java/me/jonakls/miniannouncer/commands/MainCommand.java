@@ -1,19 +1,20 @@
 package me.jonakls.miniannouncer.commands;
 
+import me.jonakls.miniannouncer.MiniAnnouncer;
 import me.jonakls.miniannouncer.announce.AnnouncementManager;
 import me.jonakls.miniannouncer.message.MessageHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor {
 
-    private final Plugin plugin;
+    private final MiniAnnouncer plugin;
     private final AnnouncementManager announcementManager;
     private final MessageHandler messageHandler;
 
-    public MainCommand(Plugin plugin,
+    public MainCommand(MiniAnnouncer plugin,
                        AnnouncementManager announcementManager,
                        MessageHandler messageHandler) {
         this.plugin = plugin;
@@ -22,8 +23,8 @@ public class MainCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command,
-                             String label, String[] args) {
+    public boolean onCommand(CommandSender sender, @NotNull Command command,
+                             @NotNull String label, String[] args) {
         if (!sender.hasPermission("miniannouncer.commands")) {
             messageHandler.sendMessage(sender, "no-permission");
             return true;
@@ -35,16 +36,21 @@ public class MainCommand implements CommandExecutor {
         }
 
         switch (args[0].toLowerCase()) {
-            case "toggle": {
+            case "toggle" -> {
                 announcementManager.toggleAnnouncements(plugin, sender);
-                break;
             }
-            default: {
-                messageHandler.sendMessage(sender, "help");
-                break;
+            case "reload" -> {
+                plugin.reloadConfig();
+                plugin.reloadAnnouncer();
+
+                messageHandler.sendMessage(sender, "config-reloaded");
+
+
+            }
+            default -> {
+                messageHandler.sendListMessage(sender, "help");
             }
         }
-
         return true;
     }
 }
