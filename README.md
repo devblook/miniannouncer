@@ -1,12 +1,13 @@
+![](assets/miniannbanaer.png)
 # MiniAnnouncer
 
 A simple solution for automatic announcements with MiniMessage based on [MessageAnnouncer](https://www.spigotmc.org/resources/5408/) by [clip](https://github.com/extendedclip), 
 also adding features such as titles, actionbars, sounds and [MiniMessage format](https://docs.adventure.kyori.net/minimessage#format) to each announcement.
 
-###DEPENDENCIES
+### DEPENDENCIES
 - PlaceholderAPI
 
-###COMMANDS
+### COMMANDS
 Commands:
 - /ma
 - /minia
@@ -20,13 +21,36 @@ Sub Commands:
 - /ma info - Show plugin info.
 - /ma help - Show all plugin commands.
 
-###PERMISSION
+### PERMISSION
 - miniannouncer.commands - General commands permission
 
-###ACTION TAGS
+### ACTION TAGS
 | TAG | FORMAT | EXAMPLE |
 | --- | --- | --- |
 | MESSAGE | `[MESSAGE] text` | `[MESSAGE] A text message.` |
 | ACTIONBAR | `[ACTIONBAR] text` | `[ACTIONBAR] An actionbar message.` |
 | SOUND | `[SOUND] sound;volume;pitch` | `[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5;5` |
 | TITLE | `[TITLE] title;subtitle;fadeIn;stay;fadeOut` | `[TITLE] Title; and Subtitle Announce;5;5;5` |
+
+### Spoilers
+* Title
+
+![](assets/plugin/title.png)
+* Actionbar
+
+![](assets/plugin/actionbar.png)
+* Chat
+
+![](assets/plugin/chatannounce.png)
+* Gradients
+
+![](assets/plugin/gtitle.png)
+![](assets/plugin/gactionbar.png)
+
+* Hover text and actions
+
+![](assets/plugin/hchat.png)
+
+* Easy config
+
+![](assets/plugin/config.png)
