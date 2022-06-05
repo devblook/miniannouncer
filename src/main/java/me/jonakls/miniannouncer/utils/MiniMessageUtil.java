@@ -13,7 +13,7 @@ import java.time.Duration;
 public class MiniMessageUtil {
 
     public static Component toMiniMessage(String text) {
-        return MiniMessage.miniMessage().parse(text);
+        return MiniMessage.miniMessage().deserialize(text);
     }
 
     public static void execute(Player player, String line) {
@@ -33,7 +33,7 @@ public class MiniMessageUtil {
                         Title.title(
                                 toMiniMessage(title[0]),
                                 toMiniMessage(title[1]),
-                                Title.Times.of(
+                                Title.Times.times(
                                         Duration.ofSeconds(Long.parseLong(title[2])),
                                         Duration.ofSeconds(Long.parseLong(title[3])),
                                         Duration.ofSeconds(Long.parseLong(title[4]))
