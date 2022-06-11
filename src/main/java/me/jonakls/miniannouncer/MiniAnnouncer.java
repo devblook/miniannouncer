@@ -21,7 +21,7 @@ public final class MiniAnnouncer extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getConfig().options().copyDefaults(true);
+        getConfig().options().copyDefaults();
         saveDefaultConfig();
 
         MessageHandlerBuilder messageHandlerBuilder = MessageHandler
