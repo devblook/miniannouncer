@@ -1,4 +1,4 @@
-package me.jonakls.miniannouncer.stack;
+package me.jonakls.miniannouncer.announce.stack;
 
 import me.jonakls.miniannouncer.announce.Announcement;
 import org.bukkit.configuration.ConfigurationSection;
@@ -9,18 +9,17 @@ import java.util.List;
 
 public class AnnouncementStackCreator {
 
-    public List<Announcement> parse(ConfigurationSection section) {
+    public static List<Announcement> parse(ConfigurationSection section) {
         List<Announcement> announcements = new ArrayList<>();
 
         for (String key : section.getKeys(false)) {
             List<String> lines = section.getStringList(key);
             announcements.add(new Announcement(lines));
         }
-
         return announcements;
     }
 
-    public @Nullable AnnouncementStack createStack(ConfigurationSection section,
+    public static @Nullable AnnouncementStack createStack(ConfigurationSection section,
                                                    List<Announcement> announcements) {
         String type = section.getString("type");
 

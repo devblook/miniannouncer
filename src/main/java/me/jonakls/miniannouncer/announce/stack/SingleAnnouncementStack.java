@@ -1,4 +1,4 @@
-package me.jonakls.miniannouncer.stack;
+package me.jonakls.miniannouncer.announce.stack;
 
 import me.jonakls.miniannouncer.announce.Announcement;
 

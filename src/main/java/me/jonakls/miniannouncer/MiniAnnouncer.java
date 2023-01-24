@@ -1,72 +1,39 @@
 package me.jonakls.miniannouncer;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import me.jonakls.miniannouncer.announce.AnnouncementManager;
-import me.jonakls.miniannouncer.commands.MainCommand;
-import me.jonakls.miniannouncer.commands.MainCommandTabCompleter;
-import me.jonakls.miniannouncer.message.MessageHandler;
-import me.jonakls.miniannouncer.message.MessageHandlerBuilder;
-import me.jonakls.miniannouncer.message.MessageInterceptor;
-import me.jonakls.miniannouncer.stack.AnnouncementStackCreator;
-import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.entity.Player;
+
+import me.jonakls.miniannouncer.module.PluginModule;
+import me.jonakls.miniannouncer.service.Service;
 import org.bukkit.plugin.java.JavaPlugin;
+import team.unnamed.inject.Injector;
+
+import javax.inject.Inject;
+import java.util.Set;
 
 public final class MiniAnnouncer extends JavaPlugin {
 
-    private MessageHandler messageHandler;
-    private AnnouncementStackCreator stackCreator;
-    private AnnouncementManager announcementManager;
+    @Inject
+    private Set<Service> services;
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
+        if (!getDataFolder().exists() && !getDataFolder().mkdirs()) {
+            throw new RuntimeException("Could not create plugin data folder!");
+        }
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
-        MessageHandlerBuilder messageHandlerBuilder = MessageHandler
-                .builder(this)
-                .addInterceptor(MessageInterceptor.CHAT_COLOR_INTERCEPTOR);
+        Injector.create(new PluginModule(this))
+                .injectMembers(this);
+    }
 
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            messageHandlerBuilder.addInterceptor(
-                    (sender, message) -> {
-                        if (sender instanceof Player) {
-                            return PlaceholderAPI.setPlaceholders(
-                                    (Player) sender, message
-                            );
-                        }
+    @Override
+    public void onEnable() {
 
-                        return message;
-                    }
-            );
-            getLogger().info("PlaceholderAPI has been found, using it!");
-        }
-
-        messageHandler = messageHandlerBuilder.build();
-        stackCreator = new AnnouncementStackCreator();
-        announcementManager = new AnnouncementManager(this, messageHandler, stackCreator);
-
-        announcementManager.startTask(this, announcementManager.createStack());
-
-        PluginCommand command = getCommand("miniannouncer");
-
-        command.setExecutor(new MainCommand(
-                this, announcementManager, messageHandler
-        ));
-
-        command.setTabCompleter(new MainCommandTabCompleter());
+        services.forEach(Service::start);
     }
 
     @Override
     public void onDisable() {
-        announcementManager.stopTask();
+        services.forEach(Service::stop);
     }
-
-    public void reloadAnnouncer() {
-        announcementManager.stopTask();
-        getLogger().info("Announcements were restarted!!");
-        announcementManager.startTask(this, announcementManager.createStack());
-    }
-
 }

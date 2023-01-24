@@ -4,6 +4,7 @@ import me.jonakls.miniannouncer.MiniAnnouncer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,8 +66,26 @@ public class MessageHandler {
         sender.sendMessage(String.join("\n", getMessages(sender, path, replacements)));
     }
 
-    public static MessageHandlerBuilder builder(MiniAnnouncer plugin) {
-        return new MessageHandlerBuilder(plugin);
+    public static Builder builder(MiniAnnouncer plugin) {
+        return new Builder(plugin);
     }
 
+    public static class Builder {
+        private final MiniAnnouncer plugin;
+        private final Set<MessageInterceptor> interceptors;
+
+        protected Builder(MiniAnnouncer plugin) {
+            this.plugin = plugin;
+            this.interceptors = new HashSet<>();
+        }
+
+        public Builder addInterceptor(MessageInterceptor interceptor) {
+            this.interceptors.add(interceptor);
+            return this;
+        }
+
+        public MessageHandler build() {
+            return new MessageHandler(plugin, interceptors);
+        }
+    }
 }

@@ -1,7 +1,8 @@
-package me.jonakls.miniannouncer.announce;
+package me.jonakls.miniannouncer.announce.task;
 
+import me.jonakls.miniannouncer.announce.Announcement;
 import me.jonakls.miniannouncer.message.MessageHandler;
-import me.jonakls.miniannouncer.stack.AnnouncementStack;
+import me.jonakls.miniannouncer.announce.stack.AnnouncementStack;
 import me.jonakls.miniannouncer.utils.MiniMessageUtil;
 import org.bukkit.Bukkit;
 

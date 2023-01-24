@@ -4,11 +4,12 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.intellij.lang.annotations.Subst;
 
 import java.time.Duration;
+import java.util.Locale;
+
 
 public class MiniMessageUtil {
 
@@ -17,31 +18,32 @@ public class MiniMessageUtil {
     }
 
     public static void execute(Player player, String line) {
-        String actionType = StringUtils.substringBetween(line, "[", "]").toUpperCase();
+        //String actionType = StringUtils.substringBetween(line, "[", "]").toUpperCase();
+        String actionType = line.substring(1, line.indexOf("]"))
+                .toUpperCase(Locale.ROOT)
+                .replace("[", "");
 
         switch (actionType) {
-            default:
-            case "MESSAGE":
-                player.sendMessage(toMiniMessage(line.substring(9)));
-                break;
-            case "ACTIONBAR":
-                player.sendActionBar(toMiniMessage(line.substring(11)));
-                break;
-            case "TITLE":
-                String[] title = line.substring(7).split(";");
-                player.showTitle(
-                        Title.title(
-                                toMiniMessage(title[0]),
-                                toMiniMessage(title[1]),
-                                Title.Times.times(
-                                        Duration.ofSeconds(Long.parseLong(title[2])),
-                                        Duration.ofSeconds(Long.parseLong(title[3])),
-                                        Duration.ofSeconds(Long.parseLong(title[4]))
-                                )
-                        )
+            case "MESSAGE" -> player.sendMessage(toMiniMessage(line.substring(9)));
+            case "ACTIONBAR" -> player.sendActionBar(toMiniMessage(line.substring(11)));
+            case "TITLE" -> {
+                String[] titleArray = line.substring(7).split(";");
+
+                Title.Times times = Title.Times.times(
+                        Duration.ofSeconds(Long.parseLong(titleArray[2])),
+                        Duration.ofSeconds(Long.parseLong(titleArray[3])),
+                        Duration.ofSeconds(Long.parseLong(titleArray[4]))
                 );
-                break;
-            case "SOUND":
+
+                Title title = Title.title(
+                        toMiniMessage(titleArray[0]),
+                        toMiniMessage(titleArray[1]),
+                        times
+                );
+
+                player.showTitle(title);
+            }
+            case "SOUND" -> {
                 @Subst("")
                 String[] sound = line.substring(7).trim().split(";");
                 player.playSound(
@@ -52,7 +54,10 @@ public class MiniMessageUtil {
                                 Float.parseFloat(sound[2])
                         )
                 );
-                break;
+            }
+            default -> {
+                player.sendMessage(toMiniMessage(line));
+            }
         }
     }
 
