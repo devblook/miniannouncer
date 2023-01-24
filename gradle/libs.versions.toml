@@ -1,0 +1,13 @@
+[versions]
+spigot = "1.19.3-R0.1-SNAPSHOT"
+placeholder = "2.11.2"
+
+[libraries]
+spigot = { group = "io.papermc.paper", name = "paper-api", version.ref = "spigot" }
+placeholder = { group = "me.clip", name = "placeholderapi", version.ref = "placeholder" }
+inject = { group = "team.unnamed", name = "inject", version = "1.0.1" }
+command = { group = "dev.triumphteam", name = "triumph-cmd-bukkit", version = "2.0.0-SNAPSHOT" }
+
+[plugins]
+shadow = { id = "com.github.johnrengelman.shadow", version = "7.1.2"}
+minecrell = {id = "net.minecrell.plugin-yml.bukkit", version = "0.5.2"}

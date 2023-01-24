@@ -1,35 +1,54 @@
 plugins {
     `java-library`
-    id("com.github.johnrengelman.shadow") version("7.1.1")
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.minecrell)
 }
 
 repositories {
     mavenLocal()
-    maven("https://repo.codemc.io/repository/nms/")
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+
+    maven("https://repo.triumphteam.dev/snapshots/")
+    maven("https://repo.unnamed.team/repository/unnamed-public/")
     mavenCentral()
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    implementation("net.kyori:adventure-text-minimessage:4.11.0") {
-        exclude("net.kyori", "adventure-api")
-    }
-    compileOnly("me.clip:placeholderapi:2.11.1")
+    compileOnly(libs.spigot)
+    compileOnly(libs.placeholder)
+
+    implementation(libs.inject)
+    implementation(libs.command)
+}
+
+bukkit {
+    main = "${rootProject.group}.miniannouncer.${rootProject.name}"
+    name = rootProject.name
+    apiVersion = "1.13"
+    version = "${project.version}"
+    description = "Simple plugin for automatic announcers"
+    website = "https://github.com/jonakls"
+
+    author = "Jonakls"
+    softDepend = listOf("PlaceholderAPI")
 }
 
 tasks {
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(16))
-        }
+
+    shadowJar {
+        archiveFileName.set("${rootProject.name}-${project.version}.jar")
+        archiveClassifier.set("")
+
+        // Relocations
+        relocate("team.unnamed.inject", "${rootProject.group}.miniannouncer.libs.inject")
+        relocate("dev.triumphteam.triumph-cmd-bukkit", "${rootProject.group}.miniannouncer.libs.command")
+
     }
 
-    processResources {
-        filesMatching("**/*.yml") {
-            filter<org.apache.tools.ant.filters.ReplaceTokens>(
-                "tokens" to mapOf("version" to project.version)
-            )
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 }
