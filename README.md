@@ -8,7 +8,6 @@ also adding features such as titles, actionbars, sounds and [MiniMessage format]
 - PlaceholderAPI
 
 ### 💻 COMMANDS
-Commands:
 - /ma
 - /minia
 - /announcer
