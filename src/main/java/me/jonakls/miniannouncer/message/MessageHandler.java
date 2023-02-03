@@ -1,6 +1,6 @@
 package me.jonakls.miniannouncer.message;
 
-import me.jonakls.miniannouncer.MiniAnnouncer;
+import me.jonakls.miniannouncer.BukkitConfiguration;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -12,13 +12,12 @@ public class MessageHandler {
 
     private static final String BASE_PATH = "messages.";
 
-    private final MiniAnnouncer plugin;
     private final Set<MessageInterceptor> interceptors;
+    private final BukkitConfiguration config;
 
-    public MessageHandler(MiniAnnouncer plugin,
-                          Set<MessageInterceptor> interceptors) {
-        this.plugin = plugin;
-        this.interceptors = interceptors;
+    public MessageHandler(BukkitConfiguration config) {
+        this.config = config;
+        this.interceptors = new HashSet<>();
     }
 
     public String applyInterceptors(CommandSender sender, String message) {
@@ -31,7 +30,7 @@ public class MessageHandler {
 
     public String getMessage(CommandSender sender, String path,
                              Object... replacements) {
-        FileConfiguration configuration = plugin.getConfig();
+        FileConfiguration configuration = config.get();
         String message = configuration.getString(BASE_PATH + path);
 
         if (message == null) {
@@ -46,7 +45,7 @@ public class MessageHandler {
 
     public List<String> getMessages(CommandSender sender, String path,
                                     Object... replacements) {
-        FileConfiguration configuration = plugin.getConfig();
+        FileConfiguration configuration = config.get();
         List<String> messages = configuration.getStringList(BASE_PATH + path);
         messages.replaceAll(
                 line -> String.format(
@@ -66,26 +65,7 @@ public class MessageHandler {
         sender.sendMessage(String.join("\n", getMessages(sender, path, replacements)));
     }
 
-    public static Builder builder(MiniAnnouncer plugin) {
-        return new Builder(plugin);
-    }
-
-    public static class Builder {
-        private final MiniAnnouncer plugin;
-        private final Set<MessageInterceptor> interceptors;
-
-        protected Builder(MiniAnnouncer plugin) {
-            this.plugin = plugin;
-            this.interceptors = new HashSet<>();
-        }
-
-        public Builder addInterceptor(MessageInterceptor interceptor) {
-            this.interceptors.add(interceptor);
-            return this;
-        }
-
-        public MessageHandler build() {
-            return new MessageHandler(plugin, interceptors);
-        }
+    public void addInterceptor(MessageInterceptor interceptor) {
+        interceptors.add(interceptor);
     }
 }

@@ -1,11 +1,11 @@
 package me.jonakls.miniannouncer.module;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.jonakls.miniannouncer.BukkitConfiguration;
 import me.jonakls.miniannouncer.MiniAnnouncer;
 import me.jonakls.miniannouncer.announce.AnnounceService;
 import me.jonakls.miniannouncer.announce.AnnouncementManager;
 import me.jonakls.miniannouncer.message.MessageHandler;
-import me.jonakls.miniannouncer.message.MessageInterceptor;
 import me.jonakls.miniannouncer.module.submodules.CommandModule;
 import me.jonakls.miniannouncer.service.CommandService;
 import me.jonakls.miniannouncer.service.Service;
@@ -31,31 +31,29 @@ public class PluginModule extends AbstractModule {
         return plugin.getSLF4JLogger();
     }
 
-    @Singleton
-    @Provides
-    public MessageHandler messageHandler() {
-        MessageHandler.Builder messageHandlerBuilder = MessageHandler.builder(plugin)
-                .addInterceptor(MessageInterceptor.CHAT_COLOR_INTERCEPTOR);
+    @Override
+    protected void configure() {
+        bind(MiniAnnouncer.class).toInstance(plugin);
+
+
+        BukkitConfiguration config = new BukkitConfiguration(plugin, "config");
+        bind(BukkitConfiguration.class)
+                .toInstance(config);
+
+        MessageHandler messageHandler = new MessageHandler(config);
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            messageHandlerBuilder.addInterceptor((sender, message) -> {
+            messageHandler.addInterceptor((sender, message) -> {
                 if (sender instanceof Player) {
                     return PlaceholderAPI.setPlaceholders((Player) sender, message);
                 }
-
                 return message;
             });
             logger().info("PlaceholderAPI has been found, using it!");
         }
 
-        return messageHandlerBuilder.build();
-    }
-
-
-    @Override
-    protected void configure() {
-        bind(MiniAnnouncer.class).toInstance(plugin);
-
+        bind(MessageHandler.class)
+                .toInstance(messageHandler);
 
         multibind(Service.class)
                 .asSet()

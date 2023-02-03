@@ -5,7 +5,7 @@ import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
-import me.jonakls.miniannouncer.MiniAnnouncer;
+import me.jonakls.miniannouncer.BukkitConfiguration;
 import me.jonakls.miniannouncer.announce.AnnouncementManager;
 import me.jonakls.miniannouncer.message.MessageHandler;
 import org.bukkit.command.CommandSender;
@@ -20,10 +20,10 @@ public class MainCommand extends BaseCommand {
     private MessageHandler messageHandler;
 
     @Inject
-    private MiniAnnouncer plugin;
+    private AnnouncementManager announcementManager;
 
     @Inject
-    private AnnouncementManager announcementManager;
+    private BukkitConfiguration configuration;
 
 
     @Default
@@ -39,7 +39,7 @@ public class MainCommand extends BaseCommand {
 
     @SubCommand("reload")
     public void reload(CommandSender sender) {
-        plugin.reloadConfig();
+        configuration.reload();
         announcementManager.reloadAnnouncer();
         messageHandler.sendMessage(sender, "config-reloaded");
     }
