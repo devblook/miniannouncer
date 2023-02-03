@@ -62,8 +62,6 @@ public class AnnouncementManager {
             return null;
         }
 
-        logger.info("DEBUG: announcements size " + announcements.size());
-
         return AnnouncementStackCreator.createStack(section, announcements);
     }
 
