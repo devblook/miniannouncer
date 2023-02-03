@@ -1,3 +1,10 @@
+# MiniAnnouncer
+# By: Jonakls
+# Version: 2.3.0
+# Description: This plugin allows you to create announcements with the MiniMessage format
+# GitHub: https://github.com/devblook/miniannouncer
+# DevBlook team support for this plugin: https://discord.gg/8pnK5g2eeH
+
 announcer:
     enabled: true
 
@@ -14,20 +21,26 @@ announcer:
     # Interval in seconds to show the next announcement
     interval: 30
 
+# You can use a different formats and apply to each announcement
+# * PlaceholderAPI placeholders
+# * MiniMessage formats (https://docs.adventure.kyori.net/minimessage#format)
+# * MiniMessage hover and click actions (https://docs.adventure.kyori.net/minimessage#hover-and-click-actions)
+# * MiniMessage gradient effect (https://docs.adventure.kyori.net/minimessage#gradient)
+# * Sound names (https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html)
 announcements:
     one:
         - "[MESSAGE] <reset>"
-        - "[TITLE]<aqua>Title announce;<green>Subtitle Announce;5;5;5"
+        - "[TITLE]<aqua>Title announce;<green>Subtitle Announce;2;4;2"
         - "[ACTIONBAR]<aqua>This is an actionbar announcer"
         - "[MESSAGE]<red>This is a text announcer"
         - "[MESSAGE]<gradient:red:blue>Compatible with hex colors and gradient effect</gradient>"
         - "[MESSAGE]<color:#EAAC46>Please view <click:open_url:https://docs.adventure.kyori.net/minimessage#format><hover:show_text:'<yellow>Click here'><red>MiniMessage</hover></click>"
         - "[MESSAGE]<color:#EAAC46>for view documentation minimessage and write more formats!!"
         - "[MESSAGE] <reset>"
-        - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5;5"
+        - "[SOUND] ENTITY_GHAST_SCREAM;5;5"
     two:
         - "[MESSAGE] <reset>"
-        - "[TITLE]<gradient:red:blue>Gradient in title</gradient>;<green>Subtitle Announce;5;5;5"
+        - "[TITLE]<gradient:red:blue>Gradient in title</gradient>;<green>Subtitle Announce;2;4;2"
         - "[ACTIONBAR] <red>This is an actionbar announcer"
         - "[MESSAGE] <red>This is a text announcer"
         - "[MESSAGE] <dark_aqua>Compatible with PlaceholderAPI"
@@ -36,23 +49,21 @@ announcements:
         - "[MESSAGE] <reset>"
         - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5;5"
     three:
-        - "[TITLE]<color:#EAAC46>Hex in title;<green>Subtitle Announce;5;5;5"
+        - "[TITLE]<color:#EAAC46>Hex in title;<green>Subtitle Announce;2;4;2"
         - "[MESSAGE] <reset>"
         - "[ACTIONBAR]<color:#EAAC46>Hex in actionbar"
         - "[MESSAGE]<hover:show_text:'<yellow>Hello world!!!'><red>Compatible with hover text</hover>"
         - "[MESSAGE]<hover:show_text:'<yellow>Click here'><click:suggest_command:/help><red>Compatible with click actions</click></hover>"
         - "[MESSAGE] <reset>"
         - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5;5"
-
 messages:
-    no-permission: "&cHey! You don't have permission to use this command"
-    insufficient-arguments: "&cWhoops... missing arguments!"
-    config-reloaded: "&aConfig reloaded!!"
+    no-permission: "<red>Hey! <yellow>You don't have permission to use this command"
+    insufficient-arguments: "<red>Whoops... missing arguments!"
+    config-reloaded: "<green>Config reloaded!!"
     help:
-        - "&e--------- &6MiniMessage Help &e---------"
-        - "&e/ma - /minia - /announcer - /miniannouncer"
+        - "<yellow>--------- <gold>MiniMessage Help <yellow>---------"
         - ""
-        - "&a/ma toggle - &7Toggle announcements"
-        - "&a/ma reload &8| &eReload plugin"
-        - "&e----------------------------------------"
-    toggle-announcements: "&eAnnouncements are now &6%s"
+        - "<green>/ma toggle <dark_gray>| <gray>Toggle announcements"
+        - "<green>/ma reload <dark_gray>| <gray>Reload plugin"
+        - "<yellow>----------------------------------------"
+    toggle-announcements: "<yellow>Announcements are now <gold>%s"
