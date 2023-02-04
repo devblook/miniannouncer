@@ -2,6 +2,7 @@ plugins {
     `java-library`
     alias(libs.plugins.shadow)
     alias(libs.plugins.minecrell)
+    alias(libs.plugins.runpaper)
 }
 
 repositories {
@@ -35,8 +36,8 @@ bukkit {
 }
 
 tasks {
-    build {
-        dependsOn(shadowJar)
+    clean {
+        delete("run")
     }
 
     shadowJar {
@@ -59,5 +60,9 @@ tasks {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
         }
+    }
+
+    runServer {
+        minecraftVersion("1.19.3")
     }
 }
