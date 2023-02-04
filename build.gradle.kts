@@ -35,15 +35,24 @@ bukkit {
 }
 
 tasks {
+    build {
+        dependsOn(shadowJar)
+    }
 
     shadowJar {
         archiveFileName.set("${rootProject.name}-${project.version}.jar")
         archiveClassifier.set("")
 
         // Relocations
-        relocate("team.unnamed.inject", "${rootProject.group}.miniannouncer.libs.inject")
-        relocate("dev.triumphteam.triumph-cmd-bukkit", "${rootProject.group}.miniannouncer.libs.command")
+        arrayOf(
+            "team.unnamed.inject",
+            "dev.triumphteam.cmd",
+            "javax.inject"
+        ).forEach {
+            relocate(it, "${rootProject.group}.miniannouncer.libs.$it")
+        }
 
+        exclude("org/jetbrains/annotations/*")
     }
 
     java {
