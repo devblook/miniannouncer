@@ -2,15 +2,31 @@ plugins {
     `java-library`
     alias(libs.plugins.shadow)
     alias(libs.plugins.minecrell)
+    alias(libs.plugins.runpaper)
 }
 
 repositories {
     mavenLocal()
-    maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-
-    maven("https://repo.triumphteam.dev/snapshots/")
-    maven("https://repo.unnamed.team/repository/unnamed-public/")
+    maven("https://repo.papermc.io/repository/maven-public/") {
+        mavenContent {
+            includeGroup("io.papermc.paper")
+        }
+    }
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/") {
+        mavenContent {
+            includeGroup("me.clip")
+        }
+    }
+    maven("https://repo.triumphteam.dev/snapshots/") {
+        mavenContent {
+            includeGroup("dev.triumphteam")
+        }
+    }
+    maven("https://repo.unnamed.team/repository/unnamed-public/") {
+        mavenContent {
+            includeGroup("team.unnamed")
+        }
+    }
     mavenCentral()
 }
 
@@ -35,20 +51,33 @@ bukkit {
 }
 
 tasks {
+    clean {
+        delete("run")
+    }
 
     shadowJar {
         archiveFileName.set("${rootProject.name}-${project.version}.jar")
         archiveClassifier.set("")
 
         // Relocations
-        relocate("team.unnamed.inject", "${rootProject.group}.miniannouncer.libs.inject")
-        relocate("dev.triumphteam.triumph-cmd-bukkit", "${rootProject.group}.miniannouncer.libs.command")
+        arrayOf(
+            "team.unnamed.inject",
+            "dev.triumphteam.cmd",
+            "javax.inject"
+        ).forEach {
+            relocate(it, "${rootProject.group}.miniannouncer.libs.$it")
+        }
 
+        exclude("org/jetbrains/annotations/*")
     }
 
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
         }
+    }
+
+    runServer {
+        minecraftVersion("1.19.3")
     }
 }
