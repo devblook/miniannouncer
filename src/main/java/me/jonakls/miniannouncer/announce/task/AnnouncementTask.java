@@ -25,7 +25,8 @@ public class AnnouncementTask implements Runnable {
                 Bukkit.getOnlinePlayers()
                         .forEach(player -> MiniMessageUtil.execute(
                                 player,
-                                messageHandler.applyInterceptors(player, line)
+                                line,
+                                messageHandler
                         ));
             }
         }

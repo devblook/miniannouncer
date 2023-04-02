@@ -1,5 +1,6 @@
 package me.jonakls.miniannouncer.utils;
 
+import me.jonakls.miniannouncer.message.MessageHandler;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -10,22 +11,20 @@ import org.intellij.lang.annotations.Subst;
 import java.time.Duration;
 import java.util.Locale;
 
-
 public class MiniMessageUtil {
 
     public static Component toMiniMessage(String text) {
         return MiniMessage.miniMessage().deserialize(text);
     }
 
-    public static void execute(Player player, String line) {
-        //String actionType = StringUtils.substringBetween(line, "[", "]").toUpperCase();
+    public static void execute(Player player, String line, MessageHandler messageHandler) {
         String actionType = line.substring(1, line.indexOf("]"))
                 .toUpperCase(Locale.ROOT)
                 .replace("[", "");
 
         switch (actionType) {
-            case "MESSAGE" -> player.sendMessage(toMiniMessage(line.substring(9)));
-            case "ACTIONBAR" -> player.sendActionBar(toMiniMessage(line.substring(11)));
+            case "MESSAGE" -> player.sendMessage(messageHandler.applyInterceptors(player, line.substring(9)));
+            case "ACTIONBAR" -> player.sendActionBar(messageHandler.applyInterceptors(player, line.substring(11)));
             case "TITLE" -> {
                 String[] titleArray = line.substring(7).split(";");
 
@@ -36,8 +35,8 @@ public class MiniMessageUtil {
                 );
 
                 Title title = Title.title(
-                        toMiniMessage(titleArray[0]),
-                        toMiniMessage(titleArray[1]),
+                        messageHandler.applyInterceptors(player, titleArray[0]),
+                        messageHandler.applyInterceptors(player, titleArray[1]),
                         times
                 );
 
@@ -56,7 +55,7 @@ public class MiniMessageUtil {
                 );
             }
             default -> {
-                player.sendMessage(toMiniMessage(line));
+                player.sendMessage(messageHandler.applyInterceptors(player, line));
             }
         }
     }
