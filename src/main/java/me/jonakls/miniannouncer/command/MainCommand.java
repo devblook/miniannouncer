@@ -28,12 +28,11 @@ public class MainCommand extends BaseCommand {
 
     @Default
     public void main(CommandSender sender) {
-        messageHandler.sendMessage(sender, "help");
+        messageHandler.sendListMessage(sender, "help");
     }
 
     @SubCommand("toggle")
     public void toggle(CommandSender sender) {
-        messageHandler.sendMessage(sender, "toggle-announcements");
         announcementManager.toggleAnnouncements(sender);
     }
 
