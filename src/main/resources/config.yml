@@ -1,6 +1,6 @@
 # MiniAnnouncer
 # By: Jonakls
-# Version: 2.3.0
+# Version: 2.4.0
 # Description: This plugin allows you to create announcements with the MiniMessage format
 # GitHub: https://github.com/devblook/miniannouncer
 # DevBlook team support for this plugin: https://discord.gg/8pnK5g2eeH
@@ -66,4 +66,7 @@ messages:
         - "<green>/ma toggle <dark_gray>| <gray>Toggle announcements"
         - "<green>/ma reload <dark_gray>| <gray>Reload plugin"
         - "<yellow>----------------------------------------"
-    toggle-announcements: "<yellow>Announcements are now <gold>%s"
+    toggle-announcements:
+        true: "<yellow>Announcements are now <gold>activated"
+        false: "<yellow>Announcements are now <gold>deactivated"
+
