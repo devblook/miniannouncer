@@ -77,7 +77,7 @@ public class AnnouncementManager {
         }
 
         configuration.set("announcer.enabled", state);
-        messageHandler.sendMessage(sender, "toggle-announcements", state);
+        messageHandler.sendMessage(sender, "toggle-announcements." + state);
     }
 
     public void startTask(AnnouncementStack announcementStack) {
