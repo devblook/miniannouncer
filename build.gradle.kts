@@ -7,26 +7,10 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven("https://repo.papermc.io/repository/maven-public/") {
-        mavenContent {
-            includeGroup("io.papermc.paper")
-        }
-    }
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/") {
-        mavenContent {
-            includeGroup("me.clip")
-        }
-    }
-    maven("https://repo.triumphteam.dev/snapshots/") {
-        mavenContent {
-            includeGroup("dev.triumphteam")
-        }
-    }
-    maven("https://repo.unnamed.team/repository/unnamed-public/") {
-        mavenContent {
-            includeGroup("team.unnamed")
-        }
-    }
+    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://repo.triumphteam.dev/snapshots/")
+    maven("https://repo.unnamed.team/repository/unnamed-public/")
     mavenCentral()
 }
 
@@ -48,6 +32,7 @@ bukkit {
 
     author = "Jonakls"
     softDepend = listOf("PlaceholderAPI")
+    loadBefore = listOf("PlaceholderAPI")
 }
 
 tasks {
