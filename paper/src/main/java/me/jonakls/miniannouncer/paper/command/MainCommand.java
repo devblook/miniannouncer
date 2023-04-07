@@ -10,29 +10,21 @@ import me.jonakls.miniannouncer.core.configuration.sections.Configuration;
 import me.jonakls.miniannouncer.paper.announce.AnnouncementManager;
 import me.jonakls.miniannouncer.paper.message.MessageHandler;
 import org.bukkit.command.CommandSender;
-
-import javax.inject.Inject;
+import team.unnamed.inject.InjectAll;
 
 @Command(value = "miniannouncer", alias = "ma")
 @Permission("miniannouncer.commands")
+@InjectAll
 public class MainCommand extends BaseCommand {
 
-    @Inject
     private MessageHandler messageHandler;
-
-    @Inject
     private AnnouncementManager announcementManager;
-
-    @Inject
-    private Configuration configuration;
-
-    @Inject
-    YamlPluginConfiguration<Configuration> paperConfig;
+    private YamlPluginConfiguration<Configuration> paperConfig;
 
 
     @Default
     public void main(CommandSender sender) {
-        messageHandler.sendListMessage(sender, configuration.messages().help());
+        messageHandler.sendListMessage(sender, paperConfig.get().messages().help());
     }
 
     @SubCommand("toggle")
@@ -44,6 +36,6 @@ public class MainCommand extends BaseCommand {
     public void reload(CommandSender sender) {
         paperConfig.reload();
         announcementManager.reloadAnnouncer();
-        messageHandler.sendMessage(sender, configuration.messages().configReloaded());
+        messageHandler.sendMessage(sender, paperConfig.get().messages().configReloaded());
     }
 }
