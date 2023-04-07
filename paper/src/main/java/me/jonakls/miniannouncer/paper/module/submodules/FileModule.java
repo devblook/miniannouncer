@@ -20,16 +20,4 @@ public class FileModule extends AbstractModule {
                 "config"
         );
     }
-
-    @Singleton
-    @Provides
-    public Configuration configuration(YamlPluginConfiguration<Configuration> config) {
-        return config.get();
-    }
-
-    @Singleton
-    @Provides
-    public CommentedConfigurationNode configurationNode(YamlPluginConfiguration<Configuration> config) {
-        return config.getNode();
-    }
 }
