@@ -2,14 +2,14 @@ package me.jonakls.miniannouncer.paper.module;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.jonakls.miniannouncer.paper.MiniAnnouncerPaper;
-import me.jonakls.miniannouncer.paper.announce.AnnounceService;
+import me.jonakls.miniannouncer.paper.service.AnnounceService;
 import me.jonakls.miniannouncer.paper.announce.AnnouncementManager;
 import me.jonakls.miniannouncer.paper.message.MessageHandler;
 import me.jonakls.miniannouncer.paper.message.MessageInterceptor;
 import me.jonakls.miniannouncer.paper.module.submodules.CommandModule;
 import me.jonakls.miniannouncer.paper.module.submodules.FileModule;
 import me.jonakls.miniannouncer.paper.service.CommandService;
-import me.jonakls.miniannouncer.paper.service.Service;
+import me.jonakls.miniannouncer.api.Service;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.slf4j.Logger;

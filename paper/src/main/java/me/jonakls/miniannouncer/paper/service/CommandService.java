@@ -3,6 +3,7 @@ package me.jonakls.miniannouncer.paper.service;
 import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
 import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.BaseCommand;
+import me.jonakls.miniannouncer.api.Service;
 import me.jonakls.miniannouncer.core.configuration.sections.Configuration;
 import me.jonakls.miniannouncer.paper.message.MessageHandler;
 import org.bukkit.command.CommandSender;

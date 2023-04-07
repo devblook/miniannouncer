@@ -1,7 +1,8 @@
-package me.jonakls.miniannouncer.paper.announce;
+package me.jonakls.miniannouncer.paper.service;
 
+import me.jonakls.miniannouncer.api.Service;
 import me.jonakls.miniannouncer.core.announce.stack.AnnouncementStack;
-import me.jonakls.miniannouncer.paper.service.Service;
+import me.jonakls.miniannouncer.paper.announce.AnnouncementManager;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
