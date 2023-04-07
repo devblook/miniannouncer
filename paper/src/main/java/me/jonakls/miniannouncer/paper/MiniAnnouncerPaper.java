@@ -1,7 +1,7 @@
 package me.jonakls.miniannouncer.paper;
 
 import me.jonakls.miniannouncer.paper.module.PluginModule;
-import me.jonakls.miniannouncer.paper.service.Service;
+import me.jonakls.miniannouncer.api.Service;
 import org.bukkit.plugin.java.JavaPlugin;
 import team.unnamed.inject.Injector;
 
