@@ -46,9 +46,9 @@ public class Messages {
     @ConfigSerializable
     public static class ToggleAnnouncements {
         @Comment("Message sent when the player toggles announcements on.")
-        public String enabled = "&aEnabled announcements.";
+        public String enabled = "<green>Enabled announcements.";
         @Comment("Message sent when the player toggles announcements off.")
-        public String disabled = "&cDisabled announcements.";
+        public String disabled = "<red>Disabled announcements.";
 
         public String enabled() {
             return enabled;
