@@ -62,6 +62,16 @@ public class YamlPluginConfiguration<T> {
         }
     }
 
+    public void save(CommentedConfigurationNode node) {
+        try {
+            T newConfig = node.get(clazz);
+            loader.save(node);
+            configuration.set(newConfig);
+        } catch (ConfigurateException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Nullable
     public T get() {
         return configuration.get();

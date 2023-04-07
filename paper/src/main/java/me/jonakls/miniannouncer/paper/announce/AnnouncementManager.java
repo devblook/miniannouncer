@@ -3,6 +3,7 @@ package me.jonakls.miniannouncer.paper.announce;
 import me.jonakls.miniannouncer.core.announce.Announcement;
 import me.jonakls.miniannouncer.core.announce.stack.AnnouncementStack;
 import me.jonakls.miniannouncer.core.announce.stack.AnnouncementStackCreator;
+import me.jonakls.miniannouncer.core.configuration.YamlPluginConfiguration;
 import me.jonakls.miniannouncer.core.configuration.sections.Announcements;
 import me.jonakls.miniannouncer.core.configuration.sections.Announcer;
 import me.jonakls.miniannouncer.core.configuration.sections.Configuration;
@@ -14,29 +15,27 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import org.spongepowered.configurate.CommentedConfigurationNode;
+import org.spongepowered.configurate.ConfigurateException;
+import team.unnamed.inject.InjectAll;
+import team.unnamed.inject.InjectIgnore;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
+@InjectAll
 public class AnnouncementManager {
 
-    @Inject
     private MiniAnnouncerPaper plugin;
-
-    @Inject
     private MessageHandler messageHandler;
-
-    @Inject
     private Logger logger;
+    private YamlPluginConfiguration<Configuration> config;
 
-    @Inject
-    private Configuration config;
-
+    @InjectIgnore
     private int taskId;
 
     public List<Announcement> parseAnnouncements() {
-        List<Announcements> section = config.announcements();
+        List<Announcements> section = config.get().announcements();
 
         if (section == null) {
             return Collections.emptyList();
@@ -46,7 +45,7 @@ public class AnnouncementManager {
     }
 
     public @Nullable AnnouncementStack createStack() {
-        Announcer section = config.announcer();
+        Announcer section = config.get().announcer();
 
         if (section == null) {
             return null;
@@ -62,10 +61,11 @@ public class AnnouncementManager {
         return AnnouncementStackCreator.createStack(section, announcements);
     }
 
-    @Deprecated
+
     public void toggleAnnouncements(CommandSender sender) {
-        Messages messages = config.messages();
-        boolean state = !config.announcer().enabled();
+        CommentedConfigurationNode node = config.getNode();
+        Messages messages = config.get().messages();
+        boolean state = !config.get().announcer().enabled();
 
         if (state) {
             AnnouncementStack announcementStack = createStack();
@@ -74,7 +74,15 @@ public class AnnouncementManager {
             stopTask();
         }
 
-        //Todo: add logic for this method
+        try {
+            node.node("announcer", "enabled").set(state);
+            config.save(node);
+            config.reload();
+        } catch (ConfigurateException e) {
+            logger.error("Failed to set state of announcements", e);
+            return;
+        }
+
         messageHandler.sendMessage(
                 sender,
                 state ? messages.toggleAnnouncements().enabled() : messages.toggleAnnouncements().disabled()
@@ -85,7 +93,7 @@ public class AnnouncementManager {
         taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(
                 plugin,
                 new AnnouncementTask(announcementStack, messageHandler),
-                0L, 20L * config.announcer().interval()
+                0L, 20L * config.get().announcer().interval()
         ).getTaskId();
     }
 
