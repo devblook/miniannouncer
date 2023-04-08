@@ -60,12 +60,6 @@ tasks {
         exclude("org/jetbrains/annotations/*")
     }
 
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
-
     runServer {
         minecraftVersion("1.19.3")
     }
