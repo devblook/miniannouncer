@@ -9,6 +9,7 @@ import me.jonakls.miniannouncer.api.Service;
 import me.jonakls.miniannouncer.core.configuration.YamlPluginConfiguration;
 import me.jonakls.miniannouncer.core.configuration.sections.Configuration;
 import me.jonakls.miniannouncer.velocity.service.AnnouncerService;
+import me.jonakls.miniannouncer.velocity.service.CommandService;
 
 import java.nio.file.Path;
 
@@ -24,5 +25,6 @@ public class PluginModule extends AbstractModule {
     protected void configure() {
         Multibinder<Service> services = Multibinder.newSetBinder(binder(), Service.class);
         services.addBinding().to(AnnouncerService.class);
+        services.addBinding().to(CommandService.class);
     }
 }
