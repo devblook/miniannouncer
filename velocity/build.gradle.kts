@@ -11,9 +11,7 @@ dependencies {
     //compileOnly(libs.configurate)
     compileOnly(project(":api"))
 
-    implementation(project(":core")) {
-        exclude(group = "org.spongepowered", module = "configurate-yaml")
-    }
+    implementation(project(":core"))
     implementation("co.aikar:acf-velocity:0.5.1-SNAPSHOT")
 
     annotationProcessor("com.velocitypowered:velocity-api:3.1.1")
