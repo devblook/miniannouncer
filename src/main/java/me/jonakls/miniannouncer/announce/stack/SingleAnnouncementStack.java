@@ -6,30 +6,29 @@ import java.util.List;
 
 public class SingleAnnouncementStack implements AnnouncementStack {
 
-    private final Announcement announcement;
+  private final Announcement announcement;
 
-    public SingleAnnouncementStack(List<Announcement> frames) {
-        this.announcement = frames.get(0);
-    }
+  public SingleAnnouncementStack(List<Announcement> frames) {
+    this.announcement = frames.get(0);
+  }
 
-    @Override
-    public Announcement current() {
-        return announcement;
-    }
+  @Override
+  public Announcement current() {
+    return announcement;
+  }
 
-    @Override
-    public Announcement next() {
-        return announcement;
-    }
+  @Override
+  public Announcement next() {
+    return announcement;
+  }
 
-    @Override
-    public boolean hasNext() {
-        return false;
-    }
+  @Override
+  public boolean hasNext() {
+    return false;
+  }
 
-    @Override
-    public int getSize() {
-        return 0;
-    }
-
+  @Override
+  public int getSize() {
+    return 0;
+  }
 }

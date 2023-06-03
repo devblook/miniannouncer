@@ -6,39 +6,38 @@ import java.util.List;
 
 public class SimpleAnnouncementStack implements AnnouncementStack {
 
-    private final List<Announcement> announcements;
+  private final List<Announcement> announcements;
 
-    protected int cursor;
-    protected Announcement current;
+  protected int cursor;
+  protected Announcement current;
 
-    public SimpleAnnouncementStack(List<Announcement> announcements) {
-        this.announcements = announcements;
+  public SimpleAnnouncementStack(List<Announcement> announcements) {
+    this.announcements = announcements;
+  }
+
+  @Override
+  public Announcement current() {
+    return current;
+  }
+
+  @Override
+  public Announcement next() {
+    if (cursor >= getSize()) {
+      cursor = 0;
     }
 
-    @Override
-    public Announcement current() {
-        return current;
-    }
+    current = announcements.get(cursor++);
 
-    @Override
-    public Announcement next() {
-        if (cursor >= getSize()) {
-            cursor = 0;
-        }
+    return current;
+  }
 
-        current = announcements.get(cursor++);
+  @Override
+  public boolean hasNext() {
+    return cursor >= 0 && cursor <= getSize();
+  }
 
-        return current;
-    }
-
-    @Override
-    public boolean hasNext() {
-        return cursor >= 0 && cursor <= getSize();
-    }
-
-    @Override
-    public int getSize() {
-        return announcements.size();
-    }
-
+  @Override
+  public int getSize() {
+    return announcements.size();
+  }
 }

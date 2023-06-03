@@ -11,26 +11,26 @@ import java.util.Set;
 
 public class CommandService implements Service {
 
-    @Inject
-    private BukkitCommandManager<CommandSender> commandManager;
+  @Inject
+  private BukkitCommandManager<CommandSender> commandManager;
 
-    @Inject
-    private Set<BaseCommand> commands;
+  @Inject
+  private Set<BaseCommand> commands;
 
-    @Inject
-    private MessageHandler messageHandler;
+  @Inject
+  private MessageHandler messageHandler;
 
-    @Override
-    public void start() {
-        commandManager.registerMessage(BukkitMessageKey.NO_PERMISSION, (sender, context) ->
-            messageHandler.sendMessage(sender, "no-permission")
-        );
+  @Override
+  public void start() {
+    commandManager.registerMessage(BukkitMessageKey.NO_PERMISSION, (sender, context) ->
+                                                                     messageHandler.sendMessage(sender, "no-permission")
+    );
 
-        commands.forEach(commandManager::registerCommand);
-    }
+    commands.forEach(commandManager::registerCommand);
+  }
 
-    @Override
-    public void stop() {
-        commands.forEach(commandManager::unregisterCommand);
-    }
+  @Override
+  public void stop() {
+    commands.forEach(commandManager::unregisterCommand);
+  }
 }

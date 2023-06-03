@@ -2,7 +2,7 @@ package me.jonakls.miniannouncer.service;
 
 public interface Service {
 
-    void start();
+  void start();
 
-    default void stop() { }
+  default void stop() { }
 }

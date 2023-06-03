@@ -4,12 +4,11 @@ import me.jonakls.miniannouncer.announce.Announcement;
 
 public interface AnnouncementStack {
 
-    Announcement current();
+  Announcement current();
 
-    Announcement next();
+  Announcement next();
 
-    boolean hasNext();
+  boolean hasNext();
 
-    int getSize();
-
+  int getSize();
 }

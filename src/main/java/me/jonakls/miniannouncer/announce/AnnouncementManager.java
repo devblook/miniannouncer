@@ -1,11 +1,11 @@
 package me.jonakls.miniannouncer.announce;
 
 import me.jonakls.miniannouncer.BukkitConfiguration;
-import me.jonakls.miniannouncer.MiniAnnouncer;
-import me.jonakls.miniannouncer.announce.task.AnnouncementTask;
-import me.jonakls.miniannouncer.message.MessageHandler;
+import me.jonakls.miniannouncer.MiniAnnouncerPlugin;
 import me.jonakls.miniannouncer.announce.stack.AnnouncementStack;
 import me.jonakls.miniannouncer.announce.stack.AnnouncementStackCreator;
+import me.jonakls.miniannouncer.announce.task.AnnouncementTask;
+import me.jonakls.miniannouncer.message.MessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,84 +19,88 @@ import java.util.List;
 
 public class AnnouncementManager {
 
-    private final MiniAnnouncer plugin;
-    private final MessageHandler messageHandler;
-    private final Logger logger;
-    private final BukkitConfiguration config;
+  private final MiniAnnouncerPlugin plugin;
+  private final MessageHandler messageHandler;
+  private final Logger logger;
+  private final BukkitConfiguration config;
 
-    private int taskId;
+  private int taskId;
 
-    @Inject
-    public AnnouncementManager(MiniAnnouncer plugin, MessageHandler messageHandler,
-                               Logger logger, BukkitConfiguration config) {
-        this.plugin = plugin;
-        this.messageHandler = messageHandler;
-        this.logger = logger;
-        this.config = config;
+  @Inject
+  public AnnouncementManager(
+    MiniAnnouncerPlugin plugin, MessageHandler messageHandler,
+    Logger logger, BukkitConfiguration config
+  ) {
+    this.plugin = plugin;
+    this.messageHandler = messageHandler;
+    this.logger = logger;
+    this.config = config;
+  }
+
+  public List<Announcement> parseAnnouncements() {
+    FileConfiguration configuration = config.get();
+    ConfigurationSection section = configuration
+                                     .getConfigurationSection("announcements");
+
+    if (section == null) {
+      return Collections.emptyList();
     }
 
-    public List<Announcement> parseAnnouncements() {
-        FileConfiguration configuration = config.get();
-        ConfigurationSection section = configuration
-                .getConfigurationSection("announcements");
+    return AnnouncementStackCreator.parse(section);
+  }
 
-        if (section == null) {
-            return Collections.emptyList();
-        }
+  public @Nullable AnnouncementStack createStack() {
+    FileConfiguration configuration = config.get();
+    ConfigurationSection section = configuration.getConfigurationSection("announcer");
 
-        return AnnouncementStackCreator.parse(section);
+    if (section == null) {
+      return null;
     }
 
-    public @Nullable AnnouncementStack createStack() {
-        FileConfiguration configuration = config.get();
-        ConfigurationSection section = configuration.getConfigurationSection("announcer");
+    List<Announcement> announcements = parseAnnouncements();
 
-        if (section == null) {
-            return null;
-        }
-
-        List<Announcement> announcements = parseAnnouncements();
-
-        if (announcements.isEmpty()) {
-            logger.warn("Announcements are empty");
-            return null;
-        }
-
-        return AnnouncementStackCreator.createStack(section, announcements);
+    if (announcements.isEmpty()) {
+      logger.warn("Announcements are empty");
+      return null;
     }
 
-    public void toggleAnnouncements(CommandSender sender) {
-        FileConfiguration configuration = config.get();
-        boolean state = !configuration.getBoolean("announcer.enabled");
+    return AnnouncementStackCreator.createStack(section, announcements);
+  }
 
-        if (state) {
-            AnnouncementStack announcementStack = createStack();
-            startTask(announcementStack);
-        } else {
-            stopTask();
-        }
+  public void toggleAnnouncements(CommandSender sender) {
+    FileConfiguration configuration = config.get();
+    boolean state = !configuration.getBoolean("announcer.enabled");
 
-        configuration.set("announcer.enabled", state);
-        messageHandler.sendMessage(sender, "toggle-announcements." + state);
+    if (state) {
+      AnnouncementStack announcementStack = createStack();
+      startTask(announcementStack);
+    } else {
+      stopTask();
     }
 
-    public void startTask(AnnouncementStack announcementStack) {
-        FileConfiguration configuration = config.get();
-        taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(
-                plugin,
-                new AnnouncementTask(announcementStack, messageHandler),
-                0L, 20L * configuration.getInt("announcer.interval")
-        ).getTaskId();
-    }
+    configuration.set("announcer.enabled", state);
+    messageHandler.sendMessage(sender, "toggle-announcements." + state);
+  }
 
-    public void stopTask() {
-        Bukkit.getScheduler().cancelTask(taskId);
-    }
+  public void startTask(AnnouncementStack announcementStack) {
+    FileConfiguration configuration = config.get();
+    taskId = Bukkit.getScheduler()
+               .runTaskTimerAsynchronously(
+                 plugin,
+                 new AnnouncementTask(announcementStack, messageHandler),
+                 0L, 20L * configuration.getInt("announcer.interval")
+               )
+               .getTaskId();
+  }
 
-    public void reloadAnnouncer() {
-        stopTask();
-        logger.info("Announcements were restarted!!");
-        startTask(createStack());
-    }
+  public void stopTask() {
+    Bukkit.getScheduler()
+      .cancelTask(taskId);
+  }
 
+  public void reloadAnnouncer() {
+    stopTask();
+    logger.info("Announcements were restarted!!");
+    startTask(createStack());
+  }
 }

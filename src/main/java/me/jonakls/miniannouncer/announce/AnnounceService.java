@@ -6,16 +6,16 @@ import javax.inject.Inject;
 
 public class AnnounceService implements Service {
 
-    @Inject
-    private AnnouncementManager manager;
+  @Inject
+  private AnnouncementManager manager;
 
-    @Override
-    public void start() {
-        manager.startTask(manager.createStack());
-    }
+  @Override
+  public void start() {
+    manager.startTask(manager.createStack());
+  }
 
-    @Override
-    public void stop() {
-        manager.stopTask();
-    }
+  @Override
+  public void stop() {
+    manager.stopTask();
+  }
 }

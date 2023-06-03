@@ -8,28 +8,29 @@ import org.bukkit.Bukkit;
 
 public class AnnouncementTask implements Runnable {
 
-    private final AnnouncementStack announcementStack;
-    private final MessageHandler messageHandler;
+  private final AnnouncementStack announcementStack;
+  private final MessageHandler messageHandler;
 
-    public AnnouncementTask(AnnouncementStack announcementStack,
-                            MessageHandler messageHandler) {
-        this.announcementStack = announcementStack;
-        this.messageHandler = messageHandler;
+  public AnnouncementTask(
+    AnnouncementStack announcementStack,
+    MessageHandler messageHandler
+  ) {
+    this.announcementStack = announcementStack;
+    this.messageHandler = messageHandler;
+  }
+
+  @Override
+  public void run() {
+    if (announcementStack.hasNext()) {
+      Announcement announcement = announcementStack.next();
+      for (String line : announcement.getLines()) {
+        Bukkit.getOnlinePlayers()
+          .forEach(player -> MiniMessageUtil.execute(
+            player,
+            line,
+            messageHandler
+          ));
+      }
     }
-
-    @Override
-    public void run() {
-        if (announcementStack.hasNext()) {
-            Announcement announcement = announcementStack.next();
-            for (String line : announcement.getLines()) {
-                Bukkit.getOnlinePlayers()
-                        .forEach(player -> MiniMessageUtil.execute(
-                                player,
-                                line,
-                                messageHandler
-                        ));
-            }
-        }
-    }
-
+  }
 }
