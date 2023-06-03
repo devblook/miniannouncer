@@ -44,8 +44,8 @@ announcements:
         - "[ACTIONBAR] <red>This is an actionbar announcer"
         - "[MESSAGE] <red>This is a text announcer"
         - "[MESSAGE] <dark_aqua>Compatible with PlaceholderAPI"
-        - "[MESSAGE] <green>Name: <yellow>%player_name%"
-        - "[MESSAGE] <green>Prefix: <yellow>%vault_prefix%"
+        - "[MESSAGE] <green>Name: <yellow><papi:player_name>"
+        - "[MESSAGE] <green>Prefix: <yellow><papi:vault_prefix>"
         - "[MESSAGE] <reset>"
         - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;5;5"
     three:
