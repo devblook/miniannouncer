@@ -12,34 +12,33 @@ import org.bukkit.command.CommandSender;
 
 import javax.inject.Inject;
 
-@Command("miniannouncer")
+@Command(value = "miniannouncer", alias = "ma")
 @Permission("miniannouncer.commands")
 public class MainCommand extends BaseCommand {
 
-    @Inject
-    private MessageHandler messageHandler;
+  @Inject
+  private MessageHandler messageHandler;
 
-    @Inject
-    private AnnouncementManager announcementManager;
+  @Inject
+  private AnnouncementManager announcementManager;
 
-    @Inject
-    private BukkitConfiguration configuration;
+  @Inject
+  private BukkitConfiguration configuration;
 
+  @Default
+  public void main(CommandSender sender) {
+    messageHandler.sendListMessage(sender, "help");
+  }
 
-    @Default
-    public void main(CommandSender sender) {
-        messageHandler.sendListMessage(sender, "help");
-    }
+  @SubCommand("toggle")
+  public void toggle(CommandSender sender) {
+    announcementManager.toggleAnnouncements(sender);
+  }
 
-    @SubCommand("toggle")
-    public void toggle(CommandSender sender) {
-        announcementManager.toggleAnnouncements(sender);
-    }
-
-    @SubCommand("reload")
-    public void reload(CommandSender sender) {
-        configuration.reload();
-        announcementManager.reloadAnnouncer();
-        messageHandler.sendMessage(sender, "config-reloaded");
-    }
+  @SubCommand("reload")
+  public void reload(CommandSender sender) {
+    configuration.reload();
+    announcementManager.reloadAnnouncer();
+    messageHandler.sendMessage(sender, "config-reloaded");
+  }
 }
