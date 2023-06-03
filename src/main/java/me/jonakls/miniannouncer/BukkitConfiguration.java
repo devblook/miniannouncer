@@ -12,45 +12,48 @@ import java.nio.file.Files;
 
 public class BukkitConfiguration {
 
-    private final File file;
-    private FileConfiguration config;
+  private final File file;
+  private FileConfiguration config;
 
-    public BukkitConfiguration(File folder, String fileName) {
-        if (!folder.exists() && !folder.mkdirs()) {
-            throw new IllegalStateException("Plugin folder" + folder.getName() + "cannot be created");
+  private BukkitConfiguration(File folder, String fileName) {
+    if (!folder.exists() && !folder.mkdirs()) {
+      throw new IllegalStateException("Plugin folder" + folder.getName() + "cannot be created");
+    }
+
+    this.file = new File(folder, fileName + ".yml");
+
+    if (!file.exists()) {
+      try (
+        InputStream stream = getClass().getClassLoader()
+                               .getResourceAsStream(file.getName())
+      ) {
+        if (stream != null) {
+          Files.copy(stream, file.toPath());
         }
-
-        this.file = new File(folder, fileName + ".yml");
-
-        if (!file.exists()) {
-            try (InputStream stream = getClass().getClassLoader().getResourceAsStream(file.getName())) {
-                if (stream != null) {
-                    Files.copy(stream, file.toPath());
-                }
-            } catch (IOException e) {
-                throw new UncheckedIOException("An error occurred while loading file '" + fileName + "'.", e);
-            }
-        }
-        reload();
+      } catch (IOException e) {
+        throw new UncheckedIOException("An error occurred while loading file '" + fileName + "'.", e);
+      }
     }
+    reload();
+  }
 
-    public BukkitConfiguration(Plugin plugin, String fileName) {
-        this(plugin.getDataFolder(), fileName);
-    }
+  public static BukkitConfiguration of(Plugin plugin, String fileName) {
+    return new BukkitConfiguration(plugin.getDataFolder(), fileName);
+  }
 
-    public FileConfiguration get() {
-        return config;
-    }
+  public FileConfiguration get() {
+    return config;
+  }
 
-    public void reload() {
-        this.config = YamlConfiguration.loadConfiguration(file);
-    }
+  public void reload() {
+    this.config = YamlConfiguration.loadConfiguration(file);
+  }
 
-    public void save() {
-        try {
-            config.save(file);
-        } catch (IOException e) {
-            throw new UncheckedIOException("An error occurred while saving file '" + file.getName() + "'.", e);
-        }
+  public void save() {
+    try {
+      config.save(file);
+    } catch (IOException e) {
+      throw new UncheckedIOException("An error occurred while saving file '" + file.getName() + "'.", e);
     }
+  }
 }
