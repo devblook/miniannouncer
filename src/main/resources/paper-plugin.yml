@@ -1,0 +1,14 @@
+name: MiniAnnouncer
+version: "${version}"
+main: me.jonakls.miniannouncer.MiniAnnouncerPlugin
+loader: me.jonakls.miniannouncer.MiniAnnouncerLoader
+author: Jonakls
+description: "Simple plugin for automatic announcers."
+api-version: 1.19
+website: "https://github.com/jonakls"
+has-open-classloader: true
+
+dependencies:
+  - name: PlaceholderAPI
+    required: false
+    bootstrap: false
